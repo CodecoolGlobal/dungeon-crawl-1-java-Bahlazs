@@ -9,6 +9,7 @@ public class Game implements Runnable{
     private final int tilSize = scale * originalTileSize;
 
     private final int FPS_SET = 60;
+    private final int UPS_SET = 100;
 
     private Thread gameThread;
 
@@ -43,25 +44,39 @@ public class Game implements Runnable{
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_SET;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
         long lastTime = System.nanoTime();
-        long now;
         int frames = 0;
+        int updates = 0;
         long lastChecked = System.currentTimeMillis();
 
+        double deltaU = 0;
+        double deltaF = 0;
+
         while (true) {
-            now = System.nanoTime();
-            if(now - lastTime >= timePerFrame) {
-                lastTime = now;
-                logicH.update();
+            long currentTime = System.nanoTime();
+
+            deltaU += (currentTime - lastTime) / timePerUpdate;
+            deltaF += (currentTime - lastTime) / timePerFrame;
+            lastTime = currentTime;
+
+            if (deltaF >= 1) {
                 gamePanel.repaint();
                 frames++;
+                deltaF--;
+            }
 
+            if (deltaU >= 1) {
+                logicH.update();
+                updates++;
+                deltaU--;
             }
 
             if (System.currentTimeMillis()-lastChecked >= 1000) {
                 lastChecked = System.currentTimeMillis();
-                System.out.println("FPS:" + frames);
+                System.out.println("FPS:" + frames + " | UPS:" + updates);
                 frames = 0;
+                updates = 0;
             }
         }
     }

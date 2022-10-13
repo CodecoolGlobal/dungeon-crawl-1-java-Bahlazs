@@ -16,6 +16,9 @@ public abstract class Entity extends Rectangle {
     private BufferedImage image;
 
     protected BufferedImage[][] animations;
+
+    protected double animationIndexX;
+    protected double animationIndexY;
     protected Direction direction;
 
     protected Position position;
@@ -29,6 +32,14 @@ public abstract class Entity extends Rectangle {
 
     }
 
+    public double getAnimationIndexX() {
+        return animationIndexX;
+    }
+
+    public double getAnimationIndexY() {
+        return animationIndexY;
+    }
+
     public Position getPosition() {
         return position;
     }
@@ -36,6 +47,10 @@ public abstract class Entity extends Rectangle {
 
     public BufferedImage[][] getAnimations() {
         return animations;
+    }
+
+    protected  void animate() {
+
     }
 
     public void move() {}

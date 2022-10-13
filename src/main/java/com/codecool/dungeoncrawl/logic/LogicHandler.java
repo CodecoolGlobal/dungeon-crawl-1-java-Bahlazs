@@ -31,7 +31,7 @@ public class LogicHandler {
         player.move();
     }
     public void draw(Graphics2D g2d) {
-        g2d.drawImage(player.getAnimations()[0][0], player.getPosition().getX(), player.getPosition().getY(), null);
+        g2d.drawImage(player.getAnimations()[(int) player.getAnimationIndexY()][(int) player.getAnimationIndexX()], player.getPosition().getX(), player.getPosition().getY(), null);
     }
 
 

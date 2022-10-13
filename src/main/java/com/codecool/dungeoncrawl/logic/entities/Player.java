@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.KeyHandler;
+import com.codecool.dungeoncrawl.util.Direction;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,7 +18,7 @@ public class Player extends  Entity{
     public Player(String url, int x, int y, int size, KeyHandler keyH) {
         super(url, x, y, size);
         this.keyH = keyH;
-        speed = 5;
+        speed = 2;
         importArmorImage();
     }
 
@@ -40,16 +41,33 @@ public class Player extends  Entity{
     public void move() {
         if (keyH.isUp()){
             position.setY(position.getY() - speed);
+            direction = Direction.UP;
+            animate();
         }
         if (keyH.isDown()){
             position.setY(position.getY() + speed);
+            direction = Direction.DOWN;
+            animate();
         }
         if (keyH.isRight()){
             position.setX(position.getX() + speed);
+            direction = Direction.RIGHT;
+            animate();
         }
         if (keyH.isLeft()){
             position.setX(position.getX() - speed);
+            direction = Direction.LEFT;
+            animate();
         }
 
+    }
+
+    @Override
+    protected void animate() {
+        animationIndexX = direction.value;
+        animationIndexY += 0.07;
+        if (animationIndexY > 4) {
+            animationIndexY = 0;
+        }
     }
 }
