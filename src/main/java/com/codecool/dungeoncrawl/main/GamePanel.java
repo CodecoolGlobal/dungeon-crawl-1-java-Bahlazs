@@ -22,6 +22,16 @@ public class GamePanel extends JPanel {
 
     }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
     private void setPanelSize() {
         Dimension size = new Dimension(width, height);
         setPreferredSize(size);

@@ -20,7 +20,7 @@ public class Game implements Runnable{
 
     private LogicHandler logicH;
     public Game() {
-        logicH = new LogicHandler();
+        logicH = new LogicHandler(width, height);
         gamePanel = new GamePanel(logicH, width, height);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();

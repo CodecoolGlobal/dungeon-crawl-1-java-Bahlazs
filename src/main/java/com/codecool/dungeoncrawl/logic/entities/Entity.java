@@ -49,11 +49,16 @@ public abstract class Entity extends Rectangle {
         return animations;
     }
 
-    protected  void animate() {
+    protected abstract void animate();
 
+
+    public int getEntitySize() {
+        return size;
     }
 
-    public void move() {}
+    protected abstract void endAttack(long time);
+
+    public abstract void move();
 
     protected void importImage(String url) {
         InputStream is = getClass().getResourceAsStream(url);
