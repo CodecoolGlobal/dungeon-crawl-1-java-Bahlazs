@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.util.Direction;
+import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
 
 import javax.imageio.ImageIO;
@@ -11,6 +12,8 @@ import java.io.InputStream;
 
 public abstract class Entity extends Rectangle {
 
+
+    private static final String CHARACTER_URL =
 
     protected int size;
     private BufferedImage image;
@@ -27,7 +30,7 @@ public abstract class Entity extends Rectangle {
         position = new Position(x,y);
         direction = Direction.DOWN;
         this.size = size;
-        importImage(url);
+        ImageLoader.imageLoader(url);
         loadAnimations();
 
     }

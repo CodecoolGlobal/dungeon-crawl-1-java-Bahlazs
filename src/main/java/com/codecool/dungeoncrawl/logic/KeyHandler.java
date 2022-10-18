@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    private boolean up, down, right, left;
+    private boolean up, down, right, left; // will have pickup
 
     public boolean isUp() {
         return up;

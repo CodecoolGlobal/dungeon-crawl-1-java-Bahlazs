@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.logic.map;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Map {
+public class Level {
 
     private BufferedImage background;
 
@@ -13,7 +13,7 @@ public class Map {
 
     private final MapLoader mapLoader;
 
-    public Map() {
+    public Level() {
         mapLoader = new MapLoader();
         this.background = mapLoader.loadBackground();
     }
@@ -21,4 +21,6 @@ public class Map {
     public BufferedImage getBackground() {
         return background;
     }
+
+
 }

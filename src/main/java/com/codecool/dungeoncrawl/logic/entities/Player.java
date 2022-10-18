@@ -2,7 +2,9 @@ package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.MouseHandler;
+import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
+import com.codecool.dungeoncrawl.util.ImageLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,12 +13,16 @@ import java.io.InputStream;
 
 public class Player extends  Entity{
 
+    private static final String CHARACTER_URL = "/player/Samurai.png";
+    private static final String ARMORED_CHARACTER_URL = "/player/Samurai-armored.png";
+
+    public static final int PLAYER_SCREEN_POS_X = Game.SCREEN_WIDTH /2 -(64/2);
+
+    private static final int PLAYER_SCREEN_POS_Y = Game.SCREEN_HEIGHT/2 -(64/2);
+
     private final KeyHandler keyH;
-    private  final MouseHandler mouseH;
+    private final MouseHandler mouseH;
 
-    private final int screenX;
-
-    private final int screenY;
     private BufferedImage armoredImage;
     private int speed;
 
@@ -24,40 +30,24 @@ public class Player extends  Entity{
     private boolean moving;
 
 
-    public Player(String url, int x, int y, int size, KeyHandler keyH, MouseHandler mouseH , int screenWidth, int screenHeight) {
-        super(url, x, y, size);
-        screenX = screenWidth/2 -(getEntitySize()/2);
-        screenY = screenHeight/2 -(getEntitySize()/2);
+    public Player(int x, int y, int size, KeyHandler keyH, MouseHandler mouseH ) {
+        super(CHARACTER_URL, x, y, size);
         this.keyH = keyH;
         this.mouseH = mouseH;
         speed = 2;
         attackDuration = 0.7;
         moving = true;
-        importArmorImage();
+        armoredImage = ImageLoader.imageLoader(ARMORED_CHARACTER_URL);
     }
 
     public int getScreenX() {
-        return screenX;
+        return PLAYER_SCREEN_POS_X;
     }
 
-    public int getScreenY() {
-        return screenY;
+    public int getPLAYER_SCREEN_POS_Y() {
+        return PLAYER_SCREEN_POS_Y;
     }
 
-    private void importArmorImage() {
-        InputStream is = getClass().getResourceAsStream("/player/Samurai-armored.png");
-        try {
-            armoredImage = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void move() {

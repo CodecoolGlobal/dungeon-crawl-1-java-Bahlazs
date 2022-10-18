@@ -4,24 +4,26 @@ import com.codecool.dungeoncrawl.logic.LogicHandler;
 
 public class Game implements Runnable{
 
-    private final int originalTileSize = 16;
-    private final int scale = 4;
-    private final int tilSize = scale * originalTileSize;
+    private static final int ORIGINAL_TILE_SIZE = 16;
+    private static final int SCALE = 4;
+    private static final int TILE_SIZE = SCALE * ORIGINAL_TILE_SIZE;
+    public static final int MAX_SCREEN_COL = 20;
+    public static final int MAX_SCREEN_ROW = 12;
+    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; //1280
+    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; //800
+    private static final int FPS_SET = 60;
 
-    private final int FPS_SET = 60;
-    private final int UPS_SET = 100;
+    private static final int UPS_SET = 100;
 
     private Thread gameThread;
 
-    private final int width = tilSize * 20;
-    private final int height = tilSize * 12;
     private GameWindow gameWindow;
     private GamePanel gamePanel;
 
     private LogicHandler logicH;
     public Game() {
-        logicH = new LogicHandler(width, height);
-        gamePanel = new GamePanel(logicH, width, height);
+        logicH = new LogicHandler(SCREEN_WIDTH, SCREEN_HEIGHT);
+        gamePanel = new GamePanel(logicH, SCREEN_WIDTH, SCREEN_HEIGHT);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameThread();
