@@ -62,14 +62,20 @@ public abstract class Entity {
         return animations;
     }
 
-    protected abstract void animate();
+    protected void animate() {
+        animationIndexX = direction.value;
+        animationIndexY += 0.07;
+        if (animationIndexY > 4) {
+            animationIndexY = 0;
+        }
+    }
 
 
     public int getEntitySize() {
         return size;
     }
-
-    protected abstract void endAttack(long time);
+    public abstract void attack();
+    public abstract void endAttack(long time);
 
     public abstract void move();
 
