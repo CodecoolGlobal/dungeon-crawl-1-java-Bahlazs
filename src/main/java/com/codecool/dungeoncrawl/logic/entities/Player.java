@@ -77,14 +77,6 @@ public class Player extends  Entity{
 
 
     @Override
-    protected void animate() {
-        animationIndexX = direction.value;
-        animationIndexY += 0.07;
-        if (animationIndexY > 4) {
-            animationIndexY = 0;
-        }
-    }
-
     public void attack() {
         if (mouseH.isButtonOnePressed()) {
             moving = false;
@@ -96,7 +88,8 @@ public class Player extends  Entity{
         }
     }
 
-    protected void endAttack(long attackTime) {
+    @Override
+    public void endAttack(long attackTime) {
         if (attackTime + (attackDuration*1000) <= System.currentTimeMillis()) {
             animationIndexY = 0;
             mouseH.setAttacking(false);

@@ -13,7 +13,7 @@ import java.io.InputStream;
 public abstract class Entity extends Rectangle {
 
 
-    private static final String CHARACTER_URL =
+
 
     protected int size;
     private BufferedImage image;
@@ -26,11 +26,11 @@ public abstract class Entity extends Rectangle {
 
     protected Position position;
 
-    public Entity(String url, int x, int y, int size) {
+    public Entity(String characterUrl, int x, int y, int size) {
         position = new Position(x,y);
         direction = Direction.DOWN;
         this.size = size;
-        ImageLoader.imageLoader(url);
+        image = ImageLoader.imageLoader(characterUrl);
         loadAnimations();
 
     }
@@ -52,14 +52,20 @@ public abstract class Entity extends Rectangle {
         return animations;
     }
 
-    protected abstract void animate();
+    protected void animate() {
+        animationIndexX = direction.value;
+        animationIndexY += 0.07;
+        if (animationIndexY > 4) {
+            animationIndexY = 0;
+        }
+    }
 
 
     public int getEntitySize() {
         return size;
     }
-
-    protected abstract void endAttack(long time);
+    public abstract void attack();
+    public abstract void endAttack(long time);
 
     public abstract void move();
 
