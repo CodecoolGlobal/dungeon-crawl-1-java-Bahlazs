@@ -7,21 +7,9 @@ import java.io.InputStream;
 
 public class MapLoader {
 
-    public BufferedImage loadBackground() {
-        BufferedImage image = null;
-        InputStream is = getClass().getResourceAsStream("/background/ground-map.png");
-        try {
-            image = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return image;
+    public Block[] getMapDetails() {
+        Block[] blocks = new Block[10];
+        return blocks;
     }
 
 }
