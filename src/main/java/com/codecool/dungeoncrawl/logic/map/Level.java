@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.logic.map;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Level {
 
@@ -11,11 +10,11 @@ public class Level {
     private BufferedImage background;
 
 
-    private ArrayList<Block> collisionBlocks;
+    private Tile[][] blockGrid;
 
     private final MapLoader mapLoader;
 
-    public Level(String url) {
+    public Level(String url, int maxWorldCol, int MaxWorldRow) {
         mapLoader = new MapLoader();
         this.background = ImageLoader.imageLoader(url);
     }

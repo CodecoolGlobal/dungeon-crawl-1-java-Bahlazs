@@ -30,19 +30,15 @@ public class Skeleton extends Enemy {
         switch (direction) {
             case UP:
                 position.setY(position.getY() - speed);
-                animate();
                 break;
             case DOWN:
                 position.setY(position.getY() + speed);
-                animate();
                 break;
             case LEFT:
                 position.setX(position.getX() - speed);
-                animate();
                 break;
             case RIGHT:
                 position.setX(position.getX() + speed);
-                animate();
                 break;
         }
 
