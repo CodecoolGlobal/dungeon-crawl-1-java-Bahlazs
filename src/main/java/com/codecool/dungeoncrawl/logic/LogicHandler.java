@@ -91,10 +91,18 @@ public class LogicHandler {
 
         for (int i = 0; i < levelOne.getTileGrid().length; i++) {
             for (int j = 0; j < levelOne.getTileGrid()[i].length; j++) {
-                checkCollisionDown(levelOne.getTileGrid()[i][j]);
-                checkCollisionUp(levelOne.getTileGrid()[i][j]);
-                checkCollisionRight(levelOne.getTileGrid()[i][j]);
-                checkCollisionLeft(levelOne.getTileGrid()[i][j]);
+                if (player.getDirection() == Direction.DOWN) {
+                    checkCollisionDown(levelOne.getTileGrid()[i][j]);
+                }
+                if (player.getDirection() == Direction.UP) {
+                    checkCollisionUp(levelOne.getTileGrid()[i][j]);
+                }
+                if (player.getDirection() == Direction.RIGHT) {
+                    checkCollisionRight(levelOne.getTileGrid()[i][j]);
+                }
+                if (player.getDirection() == Direction.LEFT) {
+                    checkCollisionLeft(levelOne.getTileGrid()[i][j]);
+                }
 
             }
 
@@ -107,7 +115,7 @@ public class LogicHandler {
                 System.out.println("valami");
                 if (tile.isSolid()) {
                     System.out.println("collide");
-                    player.stopMovement();
+                    player.setPayerPosByCollision(getPlayerPosition().getX(),tile.y - Game.TILE_SIZE);
                 }
             }
         }
@@ -118,7 +126,7 @@ public class LogicHandler {
                 System.out.println("valami");
                 if (tile.isSolid()) {
                     System.out.println("collide");
-                    player.stopMovement();
+                    player.setPayerPosByCollision(getPlayerPosition().getX(),tile.y + Game.TILE_SIZE);
                 }
             }
         }
@@ -129,7 +137,7 @@ public class LogicHandler {
                 System.out.println("valami");
                 if (tile.isSolid()) {
                     System.out.println("collide");
-                    player.stopMovement();
+                    player.setPayerPosByCollision(tile.x- Game.TILE_SIZE, getPlayerPosition().getY());
                 }
             }
         }
@@ -140,7 +148,7 @@ public class LogicHandler {
                 System.out.println("valami");
                 if (tile.isSolid()) {
                     System.out.println("collide");
-                    player.stopMovement();
+                    player.setPayerPosByCollision(tile.x + Game.TILE_SIZE, getPlayerPosition().getY());
                 }
             }
         }

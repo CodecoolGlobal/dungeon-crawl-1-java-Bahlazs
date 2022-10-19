@@ -16,7 +16,7 @@ public abstract class Entity {
     private static final int HIT_BOX_Y_OFFSET = 16;
 
     protected int size;
-    private BufferedImage image;
+    private  BufferedImage image;
 
     protected int speed;
     protected Direction direction;
@@ -25,11 +25,14 @@ public abstract class Entity {
 
     protected Rectangle hitBox;
 
+    protected Boolean collisionIsOn;
+
     public Entity(String url, int x, int y, int speed, int size) {
         position = new Position(x,y);
         direction = Direction.DOWN;
         this.speed = speed;
         this.size = size;
+        collisionIsOn = false;
         image = ImageLoader.loadImage(url);
         hitBox = new Rectangle(position.getX()+HIT_BOX_X_OFFSET, position.getY()+HIT_BOX_Y_OFFSET, HIT_BOX_SIZE, HIT_BOX_SIZE);
 
@@ -54,7 +57,20 @@ public abstract class Entity {
         return image;
     }
 
+    public Boolean isCollisionOn() {
+        return collisionIsOn;
+    }
+
     public void stopMovement() {
+        speed = 0;
+    }
+
+
+    public void setPayerPosByCollision(int x, int y) {
+        position.setX(x);
+        position.setY(y);
+        hitBox.x = position.getX()+ HIT_BOX_X_OFFSET;
+        hitBox.y = position.getY()+ HIT_BOX_Y_OFFSET;
 
     }
 
