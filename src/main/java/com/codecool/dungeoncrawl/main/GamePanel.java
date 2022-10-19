@@ -80,6 +80,10 @@ public class GamePanel extends JPanel {
         animatePlayer();
         g2d.drawImage(logicH.getCurrentLevelBackGround().getSubimage(logicH.getPlayerPosition().getX()-(Game.SCREEN_WIDTH /2-Game.TILE_SIZE/2), logicH.getPlayerPosition().getY() -(Game.SCREEN_HEIGHT/2- Game.TILE_SIZE/2),
                 Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0,0, null);
+        g2d.drawImage(logicH.getSkeletonImage().getSubimage(0,0,Game.TILE_SIZE,Game.TILE_SIZE),
+                logicH.getSkeletonPosition().getX(),
+                logicH.getSkeletonPosition().getY(),null);
+
         g2d.drawImage(playerAnimationGrid[(int) playerAnimationIndexY][(int) playerAnimationIndexX],
                 Game.SCREEN_WIDTH /2 -(Game.TILE_SIZE/2),
                 Game.SCREEN_HEIGHT/2 - (Game.TILE_SIZE/2), null);
