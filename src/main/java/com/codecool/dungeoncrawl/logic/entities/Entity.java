@@ -4,11 +4,8 @@ import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public abstract class Entity {
 
@@ -21,18 +18,19 @@ public abstract class Entity {
     protected int size;
     private BufferedImage image;
 
-
+    protected int speed;
     protected Direction direction;
 
     protected Position position;
 
     protected Rectangle hitBox;
 
-    public Entity(String url, int x, int y, int size) {
+    public Entity(String url, int x, int y, int speed, int size) {
         position = new Position(x,y);
         direction = Direction.DOWN;
+        this.speed = speed;
         this.size = size;
-        image = ImageLoader.imageLoader(url);
+        image = ImageLoader.loadImage(url);
         hitBox = new Rectangle(position.getX()+HIT_BOX_X_OFFSET, position.getY()+HIT_BOX_Y_OFFSET, HIT_BOX_SIZE, HIT_BOX_SIZE);
 
 
@@ -46,13 +44,6 @@ public abstract class Entity {
         return direction;
     }
 
-//    public double getAnimationIndexX() {
-//        return animationIndexX;
-//    }
-//
-//    public double getAnimationIndexY() {
-//        return animationIndexY;
-//    }
 
     public Position getPosition() {
         return position;
@@ -61,6 +52,10 @@ public abstract class Entity {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public void stopMovement() {
+        speed = 0;
     }
 
 

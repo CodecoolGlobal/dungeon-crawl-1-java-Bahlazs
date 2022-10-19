@@ -1,7 +1,5 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.entities.Entity;
-import com.codecool.dungeoncrawl.logic.entities.Player;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

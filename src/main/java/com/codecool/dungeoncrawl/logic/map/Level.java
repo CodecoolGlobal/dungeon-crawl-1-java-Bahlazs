@@ -10,18 +10,22 @@ public class Level {
     private BufferedImage background;
 
 
-    private Tile[][] blockGrid;
+    private Tile[][] tileGrid;
 
     private final MapLoader mapLoader;
 
-    public Level(String url, int maxWorldCol, int MaxWorldRow) {
+    public Level(String imageUrl, String dataUrl) {
         mapLoader = new MapLoader();
-        this.background = ImageLoader.imageLoader(url);
+        this.background = ImageLoader.loadImage(imageUrl);
+        levelDetailsUrl = dataUrl;
+        tileGrid = mapLoader.createMapBlocks(mapLoader.getMapDetails(levelDetailsUrl));
     }
 
     public BufferedImage getBackground() {
         return background;
     }
 
-
+    public Tile[][] getTileGrid() {
+        return tileGrid;
+    }
 }

@@ -8,7 +8,7 @@ public class Skeleton extends Enemy {
     private final int speed;
 
     public Skeleton(int x, int y, int size) {
-        super(CHARACTER_URL, x, y, size);
+        super(CHARACTER_URL, x, y, 2, size);
         this.speed = 1;
         this.directionCooldown = 0;
     }

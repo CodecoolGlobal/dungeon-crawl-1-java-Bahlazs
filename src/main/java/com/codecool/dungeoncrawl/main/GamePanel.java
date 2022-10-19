@@ -46,7 +46,7 @@ public class GamePanel extends JPanel {
     }
 
     private BufferedImage[][] getAnimationFrames(BufferedImage image) {
-        BufferedImage[][] animationGrid = new BufferedImage[7][4];
+        BufferedImage[][] animationGrid = new BufferedImage[image.getHeight()/Game.TILE_SIZE][image.getWidth()/Game.TILE_SIZE];
         for (int j = 0; j < animationGrid.length; j++) {
             for (int i = 0; i < animationGrid[j].length; i++) {
                 animationGrid[j][i] = image.getSubimage(i* Game.TILE_SIZE, j*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);

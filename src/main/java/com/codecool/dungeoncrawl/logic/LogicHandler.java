@@ -1,20 +1,21 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.entities.Entity;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.map.Level;
+import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.Position;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class LogicHandler {
+
+    // level 1 data
     private static final String LEVEL_1_BACKGROUND_URL = "/background/level1-background.png";
 
-    private static final int LEVEL_1_MAX_WORLD_COL = 50;
-
-    private static final int LEVEL_1_MAX_WORLD_ROW = 50;
+    private static final String LEVEL_1_DATA_URL = "/Tiled-projects/blocks-level1_Blocks.csv";
 
     private KeyHandler keyH;
     private MouseHandler mouseH;
@@ -39,7 +40,7 @@ public class LogicHandler {
     private Boolean playerCanMove;
 
     public LogicHandler(int width, int height) {
-        levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_MAX_WORLD_COL, LEVEL_1_MAX_WORLD_ROW);
+        levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_DATA_URL);
         currentLevel = levelOne;
         this.keyH = new KeyHandler();
         this.mouseH = new MouseHandler();
@@ -78,10 +79,37 @@ public class LogicHandler {
         return mouseH;
     }
 
+    private boolean checkTileCollision(Tile tile, Entity entity) {
+        return entity.getHitBox().intersects(tile);
+    }
+
+    private boolean checkEntityCollision(Entity entity1, Entity entity2) {
+        return entity1.getHitBox().intersects(entity2.getHitBox());
+    }
+
+    public void checkCollisions() {
+        for (int i = 0; i < levelOne.getTileGrid().length; i++) {
+            for (int j = 0; j < levelOne.getTileGrid()[i].length; j++) {
+                if (checkTileCollision(levelOne.getTileGrid()[i][j], player)) {
+                    System.out.println("valami");
+                    if (levelOne.getTileGrid()[i][j].isSolid()) {
+                        System.out.println("collide");
+                        player.stopMovement();
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
+
     public void update() {
         player.move();
         player.attack();
         setPlayerDetails();
+        checkCollisions();
     }
 
     private void setPlayerDetails() {

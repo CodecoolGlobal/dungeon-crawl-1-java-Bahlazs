@@ -2,14 +2,10 @@ package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.MouseHandler;
-import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Player extends  Entity{
 
@@ -21,20 +17,19 @@ public class Player extends  Entity{
     private final MouseHandler mouseH;
 
     private BufferedImage armoredImage;
-    private int speed;
+
 
     private double attackDuration;
     private boolean moving;
 
 
     public Player(int x, int y, int size, KeyHandler keyH, MouseHandler mouseH ) {
-        super(CHARACTER_URL, x, y, size);
+        super(CHARACTER_URL, x, y, 3, size);
         this.keyH = keyH;
         this.mouseH = mouseH;
-        speed = 2;
         attackDuration = 0.7;
         moving = true;
-        armoredImage = ImageLoader.imageLoader(ARMORED_CHARACTER_URL);
+        armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
     }
 
     public double getAttackDuration() {
@@ -73,7 +68,7 @@ public class Player extends  Entity{
     public void attack() {
         if (mouseH.isButtonOnePressed()) {
             moving = false;
-            speed = 0;
+            stopMovement();
 
         }
         if (!moving){

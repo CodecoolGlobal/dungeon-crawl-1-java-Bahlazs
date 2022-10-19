@@ -10,9 +10,26 @@ public class Tile extends Rectangle {
 
     private final int Id;
 
-    public Tile(int x, int y, int width, int height, Position position, int id) {
+    private boolean solid;
+
+    public Tile(int x, int y, int width, int height, int id) {
         super(x, y, width, height);
-        this.position = position;
+        this.position = new Position(x,y);
         Id = id;
+        solid = false;
+    }
+
+    public boolean isSolid() {
+        return solid;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setSolid() {
+        if (!solid) {
+            solid = true;
+        }
     }
 }
