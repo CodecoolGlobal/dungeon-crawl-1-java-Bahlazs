@@ -16,7 +16,7 @@ public abstract class Entity {
     private static final int HIT_BOX_Y_OFFSET = 16;
 
     protected int size;
-    private BufferedImage image;
+    protected BufferedImage image;
 
     protected int speed;
     protected Direction direction;

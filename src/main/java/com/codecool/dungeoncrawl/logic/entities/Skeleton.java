@@ -1,16 +1,18 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
-import com.codecool.dungeoncrawl.util.Direction;
+import com.codecool.dungeoncrawl.util.ImageLoader;
 
 public class Skeleton extends Enemy {
-    private static final String CHARACTER_URL = "/player/Samurai.png";
-    private float directionCooldown;
+    private static final String CHARACTER_URL = "/enemies/skeleton.png";
+    private float directionCoolDown;
     private final int speed;
+
 
     public Skeleton(int x, int y, int size) {
         super(CHARACTER_URL, x, y, 2, size);
         this.speed = 1;
-        this.directionCooldown = 0;
+        this.directionCoolDown = 0;
+
     }
 
     @Override
@@ -45,12 +47,12 @@ public class Skeleton extends Enemy {
     }
 
     private void incrementCooldown() {
-        directionCooldown += 0.01;
+        directionCoolDown += 0.01;
     }
 
     private void changeDirectionByCooldown() {
-        if (directionCooldown >= 2) {
-            directionCooldown = 0;
+        if (directionCoolDown >= 2) {
+            directionCoolDown = 0;
             direction = direction.getRandomDirection();
         }
     }
