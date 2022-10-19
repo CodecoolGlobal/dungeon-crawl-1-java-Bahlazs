@@ -8,7 +8,7 @@ public class Skeleton extends Enemy {
     private final int speed;
 
     public Skeleton(int x, int y, int size) {
-        super(CHARACTER_URL, x, y, size);
+        super(CHARACTER_URL, x, y, 2, size);
         this.speed = 1;
         this.directionCooldown = 0;
     }
@@ -30,19 +30,15 @@ public class Skeleton extends Enemy {
         switch (direction) {
             case UP:
                 position.setY(position.getY() - speed);
-                animate();
                 break;
             case DOWN:
                 position.setY(position.getY() + speed);
-                animate();
                 break;
             case LEFT:
                 position.setX(position.getX() - speed);
-                animate();
                 break;
             case RIGHT:
                 position.setX(position.getX() + speed);
-                animate();
                 break;
         }
 

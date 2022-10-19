@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 public class ImageLoader {
 
-    public static BufferedImage imageLoader(String url) {
+    public static BufferedImage loadImage(String url) {
         BufferedImage image = null;
 
         InputStream is = ImageLoader.class.getResourceAsStream(url);
