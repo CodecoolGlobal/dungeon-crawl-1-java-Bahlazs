@@ -88,21 +88,63 @@ public class LogicHandler {
     }
 
     public void checkCollisions() {
+
         for (int i = 0; i < levelOne.getTileGrid().length; i++) {
             for (int j = 0; j < levelOne.getTileGrid()[i].length; j++) {
-                if (checkTileCollision(levelOne.getTileGrid()[i][j], player)) {
-                    System.out.println("valami");
-                    if (levelOne.getTileGrid()[i][j].isSolid()) {
-                        System.out.println("collide");
-                        player.stopMovement();
-                    }
-                }
+                checkCollisionDown(levelOne.getTileGrid()[i][j]);
+                checkCollisionUp(levelOne.getTileGrid()[i][j]);
+                checkCollisionRight(levelOne.getTileGrid()[i][j]);
+                checkCollisionLeft(levelOne.getTileGrid()[i][j]);
+
             }
 
         }
-
     }
 
+    private void checkCollisionDown(Tile tile) {
+        if (tile.y > player.getPosition().getY()) {
+            if (checkTileCollision(tile, player)) {
+                System.out.println("valami");
+                if (tile.isSolid()) {
+                    System.out.println("collide");
+                    player.stopMovement();
+                }
+            }
+        }
+    }
+    private void checkCollisionUp(Tile tile) {
+        if (tile.y < player.getPosition().getY()) {
+            if (checkTileCollision(tile, player)) {
+                System.out.println("valami");
+                if (tile.isSolid()) {
+                    System.out.println("collide");
+                    player.stopMovement();
+                }
+            }
+        }
+    }
+    private void checkCollisionRight(Tile tile) {
+        if (tile.x > player.getPosition().getX()) {
+            if (checkTileCollision(tile, player)) {
+                System.out.println("valami");
+                if (tile.isSolid()) {
+                    System.out.println("collide");
+                    player.stopMovement();
+                }
+            }
+        }
+    }
+    private void checkCollisionLeft(Tile tile) {
+        if (tile.x < player.getPosition().getX()) {
+            if (checkTileCollision(tile, player)) {
+                System.out.println("valami");
+                if (tile.isSolid()) {
+                    System.out.println("collide");
+                    player.stopMovement();
+                }
+            }
+        }
+    }
 
 
     public void update() {

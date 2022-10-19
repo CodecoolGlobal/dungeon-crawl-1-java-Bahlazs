@@ -45,19 +45,23 @@ public class Player extends  Entity{
     public void move() {
         if (keyH.isUp()){
             position.setY(position.getY() - speed);
+            hitBox.y -= speed;
             direction = Direction.UP;
         }
         if (keyH.isDown()){
             position.setY(position.getY() + speed);
+            hitBox.y += speed;
             direction = Direction.DOWN;
 
         }
         if (keyH.isRight()){
             position.setX(position.getX() + speed);
+            hitBox.x += speed;
             direction = Direction.RIGHT;
         }
         if (keyH.isLeft()){
             position.setX(position.getX() - speed);
+            hitBox.x -= speed;
             direction = Direction.LEFT;
 
         }

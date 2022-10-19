@@ -55,7 +55,7 @@ public abstract class Entity {
     }
 
     public void stopMovement() {
-        speed = 0;
+
     }
 
 
