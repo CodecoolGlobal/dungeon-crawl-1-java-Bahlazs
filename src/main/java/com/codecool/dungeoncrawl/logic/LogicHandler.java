@@ -9,7 +9,7 @@ import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
-import com.codecool.dungeoncrawl.util.Position;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,34 +157,48 @@ public class LogicHandler {
         }
     }
 
-    private void enemiesMovement() {
+    private void skeletonActions() {
+        if (skeletons.size() !=0) {
+            for (Skeleton skeleton : skeletons) {
+                checkCollisions(skeleton);
+                skeleton.move();
+                if (player.attack()) {
+                    if (checkEntityCollision(player, skeleton)) {
+//                        skeletons.remove(skeleton); TODO needs fixing
+                    }
+                }
+            }
+        }
+    }
 
+    private void spiritActions() {
+        if (spirits.size() !=0) {
+            for (Spirit spirit : spirits) {
+                checkCollisions(spirit);
+                spirit.move();
+                if (player.attack()) {
+                    if (checkEntityCollision(player, spirit)) {
+//                        spirits.remove(spirit); TODO needs fixing
+                    }
+                }
+            }
+        }
     }
 
     public void update() {
         checkCollisions(player);
         player.move();
-        if(player.attack()) {
-            if(skeleton != null){
-                if(checkEntityCollision(player,skeleton)) {
-                    skeleton = null;
-                }
-            }
-        }
+        skeletonActions();
+        spiritActions();
         setPlayerDetails();
-        if (skeleton != null) {
-            checkCollisions(skeleton);
-            skeleton.move();
-        }
+
     }
 
     private void setPlayerDetails() {
         playerAttackDuration = player.getAttackDuration();
         playerCanMove = player.isMoving();
     }
-    public void createEnemies() {
-        skeleton = new Skeleton(1500,1500, Game.TILE_SIZE);
-    }
+
 
 
 }
