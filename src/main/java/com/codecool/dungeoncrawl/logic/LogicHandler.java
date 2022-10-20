@@ -131,7 +131,7 @@ public class LogicHandler {
         if (tile.y > entity.getPosition().getY()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(getPlayerPosition().getX(),tile.y - Game.TILE_SIZE);
+                    entity.setPayerPosByCollision(entity.getPosition().getX(),tile.y - Game.TILE_SIZE);
                 }
             }
         }
@@ -140,7 +140,7 @@ public class LogicHandler {
         if (tile.y < entity.getPosition().getY()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(getPlayerPosition().getX(),tile.y + Game.TILE_SIZE);
+                    entity.setPayerPosByCollision(entity.getPosition().getX(),tile.y + Game.TILE_SIZE);
                 }
             }
         }
@@ -149,7 +149,7 @@ public class LogicHandler {
         if (tile.x > entity.getPosition().getX()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(tile.x- Game.TILE_SIZE, getPlayerPosition().getY());
+                    entity.setPayerPosByCollision(tile.x - Game.TILE_SIZE, entity.getPosition().getY());
                 }
             }
         }
@@ -158,7 +158,7 @@ public class LogicHandler {
         if (tile.x < entity.getPosition().getX()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(tile.x + Game.TILE_SIZE, getPlayerPosition().getY());
+                    entity.setPayerPosByCollision(tile.x + Game.TILE_SIZE, entity.getPosition().getY());
                 }
             }
         }
