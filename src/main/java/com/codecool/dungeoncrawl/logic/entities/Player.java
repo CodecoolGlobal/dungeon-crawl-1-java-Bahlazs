@@ -32,6 +32,14 @@ public class Player extends  Entity{
         armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
     }
 
+    public KeyHandler getKeyH() {
+        return keyH;
+    }
+
+    public MouseHandler getMouseH() {
+        return mouseH;
+    }
+
     public double getAttackDuration() {
         return attackDuration;
     }

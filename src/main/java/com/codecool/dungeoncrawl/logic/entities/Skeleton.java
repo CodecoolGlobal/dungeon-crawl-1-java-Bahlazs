@@ -5,12 +5,11 @@ import com.codecool.dungeoncrawl.util.ImageLoader;
 public class Skeleton extends Enemy {
     private static final String CHARACTER_URL = "/enemies/skeleton.png";
     private float directionCoolDown;
-    private final int speed;
+
 
 
     public Skeleton(int x, int y, int size) {
         super(CHARACTER_URL, x, y, 2, size);
-        this.speed = 1;
         this.directionCoolDown = 0;
 
     }

@@ -17,14 +17,14 @@ public class Game implements Runnable{
 
     private Thread gameThread;
 
-    private GameWindow gameWindow;
+
     private GamePanel gamePanel;
 
     private LogicHandler logicH;
     public Game() {
-        logicH = new LogicHandler(SCREEN_WIDTH, SCREEN_HEIGHT);
+        logicH = new LogicHandler();
         gamePanel = new GamePanel(logicH, SCREEN_WIDTH, SCREEN_HEIGHT);
-        gameWindow = new GameWindow(gamePanel);
+        new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameThread();
     }
@@ -34,14 +34,6 @@ public class Game implements Runnable{
         gameThread.start();
     }
 
-    public void fpsCounter(int frames, long lastChecked) {
-        frames++;
-        if (System.currentTimeMillis()-lastChecked >= 1000) {
-            lastChecked = System.currentTimeMillis();
-            System.out.println("FPS:" + frames);
-            frames = 0;
-        }
-    }
 
     @Override
     public void run() {

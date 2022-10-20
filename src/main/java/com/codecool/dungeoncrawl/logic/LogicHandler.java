@@ -4,19 +4,24 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.entities.Entity;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
+import com.codecool.dungeoncrawl.logic.entities.Spirit;
 import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.Position;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogicHandler {
 
     // level 1 data
     private static final String LEVEL_1_BACKGROUND_URL = "/background/level1-background.png";
 
-    private static final String LEVEL_1_DATA_URL = "/Tiled-projects/blocks-level1_Blocks.csv";
+    private static final String LEVEL_1_BLOCK_DATA_URL = "/Tiled-projects/blocks-level1_Blocks.csv";
+
+    private static final String LEVEL_1_ENTITY_DATA_URL = "/Tiled-projects/blocks-level1_Entities.csv";
 
     private KeyHandler keyH;
     private MouseHandler mouseH;
@@ -30,56 +35,44 @@ public class LogicHandler {
 
     private Skeleton skeleton;
 
-    private BufferedImage skeletonImage;
-    private Position skeletonPosition;
+    private List<Skeleton> skeletons;
 
-
-    // player details
-    private BufferedImage playerImage;
-
-    private Position playerPosition;
-    private Direction playerDirection;
+    private List<Spirit> spirits;
 
     private double playerAttackDuration;
 
     private Boolean playerCanMove;
 
-    public LogicHandler(int width, int height) {
-        levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_DATA_URL);
+    public LogicHandler() {
+        levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL);
         currentLevel = levelOne;
-        this.keyH = new KeyHandler();
-        this.mouseH = new MouseHandler();
-        player = new Player( 1000,1000, 64, keyH, mouseH);
-        createEnemies();
+        player = levelOne.getPlayer();
+        skeletons = currentLevel.getSkeletons();
+        spirits = currentLevel.getSpirits();
+        this.keyH = player.getKeyH();
+        this.mouseH = player.getMouseH();
     }
 
-    public Skeleton getSkeleton() {
-        return skeleton;
+    public Drawable getPlayer() {
+        return player;
     }
 
-    public BufferedImage getSkeletonImage() {
-        return skeletonImage;
+    public List<Drawable> getEnemies() {
+        List<Drawable> enemies = new ArrayList<>();
+        for (Skeleton skeleton : skeletons) {
+            enemies.add((Drawable) skeleton);
+        }
+        for (Spirit spirit: spirits) {
+            enemies.add((Drawable) spirit);
+        }
+        return enemies;
     }
 
-    public Position getSkeletonPosition() {
-        return skeletonPosition;
-    }
 
     public BufferedImage getCurrentLevelBackGround() {
         return currentLevel.getBackground();
     }
 
-    public BufferedImage getPlayerImage() {
-        return playerImage;
-    }
-
-    public Position getPlayerPosition() {
-        return playerPosition;
-    }
-
-    public Direction getPlayerDirection() {
-        return playerDirection;
-    }
 
     public double getPlayerAttackDuration() {
         return playerAttackDuration;
@@ -164,6 +157,9 @@ public class LogicHandler {
         }
     }
 
+    private void enemiesMovement() {
+
+    }
 
     public void update() {
         checkCollisions(player);
@@ -183,17 +179,9 @@ public class LogicHandler {
     }
 
     private void setPlayerDetails() {
-        playerImage = player.getImage();
-        playerDirection = player.getDirection();
-        playerPosition = player.getPosition();
         playerAttackDuration = player.getAttackDuration();
         playerCanMove = player.isMoving();
-        if (skeleton != null) {
-            skeletonImage = skeleton.getImage();
-            skeletonPosition = skeleton.getPosition();
-        }
     }
-
     public void createEnemies() {
         skeleton = new Skeleton(1500,1500, Game.TILE_SIZE);
     }

@@ -1,10 +1,12 @@
 package com.codecool.dungeoncrawl.main;
 
+import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.LogicHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class GamePanel extends JPanel {
 
@@ -12,16 +14,23 @@ public class GamePanel extends JPanel {
     private final int height;
     LogicHandler logicH;
 
+    private List<Drawable> enemies;
+
+    private Drawable player;
+
     //player animation details
 
     private  double playerAnimationIndexX;
 
     private  double playerAnimationIndexY;
 
+
     public GamePanel(LogicHandler logicH, int width, int height) {
         this.width = width;
         this.height = height;
         this.logicH = logicH;
+        player = logicH.getPlayer();
+        enemies = logicH.getEnemies();
         setPanelSize();
         setDoubleBuffered(true);
         addKeyListener(logicH.getKeyH());
@@ -57,7 +66,7 @@ public class GamePanel extends JPanel {
 
     private void animatePlayer() {
         if (logicH.getKeyH().isLeft() || logicH.getKeyH().isRight() || logicH.getKeyH().isUp() || logicH.getKeyH().isDown()) {
-            playerAnimationIndexX = logicH.getPlayerDirection().value;
+            playerAnimationIndexX = player.getDirection().value;
             playerAnimationIndexY += 0.1;
             if (playerAnimationIndexY > 4) {
                 playerAnimationIndexY = 0;
@@ -73,22 +82,40 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        BufferedImage[][] playerAnimationGrid = getAnimationFrames(logicH.getPlayerImage());
-        animatePlayer();
-        g2d.drawImage(logicH.getCurrentLevelBackGround().getSubimage(logicH.getPlayerPosition().getX() - (Game.SCREEN_WIDTH /2-Game.TILE_SIZE/2),
-                                                                logicH.getPlayerPosition().getY() - (Game.SCREEN_HEIGHT/2- Game.TILE_SIZE/2),
-                                                                Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0,0, null);
-        if(logicH.getSkeleton() != null) {
-            g2d.drawImage(logicH.getSkeletonImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
-                    logicH.getSkeletonPosition().getX() - logicH.getPlayerPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2),
-                    logicH.getSkeletonPosition().getY() - logicH.getPlayerPosition().getY() + Game.SCREEN_HEIGHT / 2 - Game.TILE_SIZE / 2, null);
-        }
+    private void drawCameraView(Graphics2D g2d) {
+        g2d.drawImage(logicH.getCurrentLevelBackGround().getSubimage(player.getPosition().getX() - (Game.SCREEN_WIDTH /2-Game.TILE_SIZE/2),
+                player.getPosition().getY() - (Game.SCREEN_HEIGHT/2- Game.TILE_SIZE/2),
+                Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0,0, null);
+    }
+
+    private void drawPlayer(Graphics2D g2d) {
+        BufferedImage[][] playerAnimationGrid = getAnimationFrames(player.getImage());
         g2d.drawImage(playerAnimationGrid[(int) playerAnimationIndexY][(int) playerAnimationIndexX],
                 Game.SCREEN_WIDTH /2 -(Game.TILE_SIZE/2),
                 Game.SCREEN_HEIGHT/2 - (Game.TILE_SIZE/2), null);
+    }
+
+    private void drawEnemies(Graphics2D g2d) {
+        if(enemies.size() != 0) {
+            for (Drawable enemy : enemies) {
+                int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
+                int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
+                g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
+                enemyXScreenPos,
+                enemyYScreenPos, null);
+            }
+        }
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        animatePlayer();
+        drawCameraView(g2d);
+        drawEnemies(g2d);
+        drawPlayer(g2d);
 
     }
+
+
 }
