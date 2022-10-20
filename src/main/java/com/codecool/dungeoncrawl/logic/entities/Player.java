@@ -69,14 +69,16 @@ public class Player extends  Entity{
     }
 
     @Override
-    public void attack() {
+    public boolean attack() {
         if (mouseH.isButtonOnePressed()) {
             moving = false;
             stopMovement();
-
-        }
-        if (!moving){
-            endAttack(mouseH.getAttackTime());
+            if (!moving) {
+                endAttack(mouseH.getAttackTime());
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 

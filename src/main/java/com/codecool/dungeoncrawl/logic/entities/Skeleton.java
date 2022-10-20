@@ -16,8 +16,8 @@ public class Skeleton extends Enemy {
     }
 
     @Override
-    public void attack() {
-
+    public boolean attack() {
+    return true;
     }
 
     @Override
@@ -32,15 +32,19 @@ public class Skeleton extends Enemy {
         switch (direction) {
             case UP:
                 position.setY(position.getY() - speed);
+                hitBox.y -= speed;
                 break;
             case DOWN:
                 position.setY(position.getY() + speed);
+                hitBox.y += speed;
                 break;
             case LEFT:
                 position.setX(position.getX() - speed);
+                hitBox.x -= speed;
                 break;
             case RIGHT:
                 position.setX(position.getX() + speed);
+                hitBox.x += speed;
                 break;
         }
 

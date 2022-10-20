@@ -29,15 +29,15 @@ public class LogicHandler {
     private final Player player;
 
     private Skeleton skeleton;
-    private BufferedImage skeletonImage;
 
+    private BufferedImage skeletonImage;
     private Position skeletonPosition;
 
+
     // player details
-
     private BufferedImage playerImage;
-    private Position playerPosition;
 
+    private Position playerPosition;
     private Direction playerDirection;
 
     private double playerAttackDuration;
@@ -51,6 +51,10 @@ public class LogicHandler {
         this.mouseH = new MouseHandler();
         player = new Player( 1000,1000, 64, keyH, mouseH);
         createEnemies();
+    }
+
+    public Skeleton getSkeleton() {
+        return skeleton;
     }
 
     public BufferedImage getSkeletonImage() {
@@ -97,25 +101,25 @@ public class LogicHandler {
         return entity.getHitBox().intersects(tile);
     }
 
-    private boolean checkEntityCollision(Entity entity1, Entity entity2) {
+    public boolean checkEntityCollision(Entity entity1, Entity entity2) {
         return entity1.getHitBox().intersects(entity2.getHitBox());
     }
 
-    public void checkCollisions() {
+    public void checkCollisions(Entity entity) {
 
-        for (int i = 0; i < levelOne.getTileGrid().length; i++) {
-            for (int j = 0; j < levelOne.getTileGrid()[i].length; j++) {
-                if (player.getDirection() != Direction.UP) {
-                    checkCollisionDown(levelOne.getTileGrid()[i][j]);
+        for (int i = 0; i < currentLevel.getTileGrid().length; i++) {
+            for (int j = 0; j < currentLevel.getTileGrid()[i].length; j++) {
+                if (entity.getDirection() != Direction.UP) {
+                    checkCollisionDown(currentLevel.getTileGrid()[i][j], entity);
                 }
-                if (player.getDirection() != Direction.DOWN) {
-                    checkCollisionUp(levelOne.getTileGrid()[i][j]);
+                if (entity.getDirection() != Direction.DOWN) {
+                    checkCollisionUp(currentLevel.getTileGrid()[i][j], entity);
                 }
-                if (player.getDirection() == Direction.RIGHT) {
-                    checkCollisionRight(levelOne.getTileGrid()[i][j]);
+                if (entity.getDirection() == Direction.RIGHT) {
+                    checkCollisionRight(currentLevel.getTileGrid()[i][j], entity);
                 }
-                if (player.getDirection() == Direction.LEFT) {
-                    checkCollisionLeft(levelOne.getTileGrid()[i][j]);
+                if (entity.getDirection() == Direction.LEFT) {
+                    checkCollisionLeft(currentLevel.getTileGrid()[i][j], entity);
                 }
 
             }
@@ -123,38 +127,38 @@ public class LogicHandler {
         }
     }
 
-    private void checkCollisionDown(Tile tile) {
-        if (tile.y > player.getPosition().getY()) {
-            if (checkTileCollision(tile, player)) {
+    private void checkCollisionDown(Tile tile, Entity entity) {
+        if (tile.y > entity.getPosition().getY()) {
+            if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    player.setPayerPosByCollision(getPlayerPosition().getX(),tile.y - Game.TILE_SIZE);
+                    entity.setPayerPosByCollision(getPlayerPosition().getX(),tile.y - Game.TILE_SIZE);
                 }
             }
         }
     }
-    private void checkCollisionUp(Tile tile) {
-        if (tile.y < player.getPosition().getY()) {
-            if (checkTileCollision(tile, player)) {
+    private void checkCollisionUp(Tile tile, Entity entity) {
+        if (tile.y < entity.getPosition().getY()) {
+            if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    player.setPayerPosByCollision(getPlayerPosition().getX(),tile.y + Game.TILE_SIZE);
+                    entity.setPayerPosByCollision(getPlayerPosition().getX(),tile.y + Game.TILE_SIZE);
                 }
             }
         }
     }
-    private void checkCollisionRight(Tile tile) {
-        if (tile.x > player.getPosition().getX()) {
-            if (checkTileCollision(tile, player)) {
+    private void checkCollisionRight(Tile tile, Entity entity) {
+        if (tile.x > entity.getPosition().getX()) {
+            if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    player.setPayerPosByCollision(tile.x- Game.TILE_SIZE, getPlayerPosition().getY());
+                    entity.setPayerPosByCollision(tile.x- Game.TILE_SIZE, getPlayerPosition().getY());
                 }
             }
         }
     }
-    private void checkCollisionLeft(Tile tile) {
-        if (tile.x < player.getPosition().getX()) {
-            if (checkTileCollision(tile, player)) {
+    private void checkCollisionLeft(Tile tile, Entity entity) {
+        if (tile.x < entity.getPosition().getX()) {
+            if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    player.setPayerPosByCollision(tile.x + Game.TILE_SIZE, getPlayerPosition().getY());
+                    entity.setPayerPosByCollision(tile.x + Game.TILE_SIZE, getPlayerPosition().getY());
                 }
             }
         }
@@ -162,11 +166,20 @@ public class LogicHandler {
 
 
     public void update() {
+        checkCollisions(player);
         player.move();
-        player.attack();
+        if(player.attack()) {
+            if(skeleton != null){
+                if(checkEntityCollision(player,skeleton)) {
+                    skeleton = null;
+                }
+            }
+        }
         setPlayerDetails();
-        checkCollisions();
-        skeleton.move();
+        if (skeleton != null) {
+            checkCollisions(skeleton);
+            skeleton.move();
+        }
     }
 
     private void setPlayerDetails() {
@@ -175,8 +188,10 @@ public class LogicHandler {
         playerPosition = player.getPosition();
         playerAttackDuration = player.getAttackDuration();
         playerCanMove = player.isMoving();
-        skeletonImage = skeleton.getImage();
-        skeletonPosition = skeleton.getPosition();
+        if (skeleton != null) {
+            skeletonImage = skeleton.getImage();
+            skeletonPosition = skeleton.getPosition();
+        }
     }
 
     public void createEnemies() {

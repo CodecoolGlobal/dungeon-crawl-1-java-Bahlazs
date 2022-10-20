@@ -19,8 +19,8 @@ public abstract class Entity {
     protected BufferedImage image;
 
     protected int speed;
-    protected Direction direction;
 
+    protected Direction direction;
     protected Position position;
 
     protected Rectangle hitBox;
@@ -35,6 +35,10 @@ public abstract class Entity {
         image = ImageLoader.loadImage(url);
         hitBox = new Rectangle(position.getX()+HIT_BOX_X_OFFSET, position.getY()+HIT_BOX_Y_OFFSET, HIT_BOX_SIZE, HIT_BOX_SIZE);
 
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public Rectangle getHitBox() {
@@ -70,7 +74,7 @@ public abstract class Entity {
 
 
 
-    protected abstract void attack();
+    protected abstract boolean attack();
     protected abstract void endAttack(long time);
 
     public abstract void move();

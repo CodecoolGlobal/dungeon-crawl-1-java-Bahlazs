@@ -81,10 +81,11 @@ public class GamePanel extends JPanel {
         g2d.drawImage(logicH.getCurrentLevelBackGround().getSubimage(logicH.getPlayerPosition().getX() - (Game.SCREEN_WIDTH /2-Game.TILE_SIZE/2),
                                                                 logicH.getPlayerPosition().getY() - (Game.SCREEN_HEIGHT/2- Game.TILE_SIZE/2),
                                                                 Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0,0, null);
-        g2d.drawImage(logicH.getSkeletonImage().getSubimage(0,0,Game.TILE_SIZE,Game.TILE_SIZE),
-                logicH.getSkeletonPosition().getX() - logicH.getPlayerPosition().getX() + Game.SCREEN_WIDTH /2 -(Game.TILE_SIZE/2),
-                logicH.getSkeletonPosition().getY() - logicH.getPlayerPosition().getY() + Game.SCREEN_HEIGHT/2- Game.TILE_SIZE/2,null);
-
+        if(logicH.getSkeleton() != null) {
+            g2d.drawImage(logicH.getSkeletonImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
+                    logicH.getSkeletonPosition().getX() - logicH.getPlayerPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2),
+                    logicH.getSkeletonPosition().getY() - logicH.getPlayerPosition().getY() + Game.SCREEN_HEIGHT / 2 - Game.TILE_SIZE / 2, null);
+        }
         g2d.drawImage(playerAnimationGrid[(int) playerAnimationIndexY][(int) playerAnimationIndexX],
                 Game.SCREEN_WIDTH /2 -(Game.TILE_SIZE/2),
                 Game.SCREEN_HEIGHT/2 - (Game.TILE_SIZE/2), null);
