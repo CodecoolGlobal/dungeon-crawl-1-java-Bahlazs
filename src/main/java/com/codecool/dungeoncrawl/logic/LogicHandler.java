@@ -1,13 +1,14 @@
 package com.codecool.dungeoncrawl.logic;
 
+
 import com.codecool.dungeoncrawl.logic.entities.Entity;
 import com.codecool.dungeoncrawl.logic.entities.Player;
+import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.Position;
-
 import java.awt.image.BufferedImage;
 
 public class LogicHandler {
@@ -27,10 +28,14 @@ public class LogicHandler {
 
     private final Player player;
 
+    private Skeleton skeleton;
+    private BufferedImage skeletonImage;
+
+    private Position skeletonPosition;
+
     // player details
 
     private BufferedImage playerImage;
-
     private Position playerPosition;
 
     private Direction playerDirection;
@@ -45,6 +50,15 @@ public class LogicHandler {
         this.keyH = new KeyHandler();
         this.mouseH = new MouseHandler();
         player = new Player( 1000,1000, 64, keyH, mouseH);
+        createEnemies();
+    }
+
+    public BufferedImage getSkeletonImage() {
+        return skeletonImage;
+    }
+
+    public Position getSkeletonPosition() {
+        return skeletonPosition;
     }
 
     public BufferedImage getCurrentLevelBackGround() {
@@ -91,10 +105,10 @@ public class LogicHandler {
 
         for (int i = 0; i < levelOne.getTileGrid().length; i++) {
             for (int j = 0; j < levelOne.getTileGrid()[i].length; j++) {
-                if (player.getDirection() == Direction.DOWN) {
+                if (player.getDirection() != Direction.UP) {
                     checkCollisionDown(levelOne.getTileGrid()[i][j]);
                 }
-                if (player.getDirection() == Direction.UP) {
+                if (player.getDirection() != Direction.DOWN) {
                     checkCollisionUp(levelOne.getTileGrid()[i][j]);
                 }
                 if (player.getDirection() == Direction.RIGHT) {
@@ -112,9 +126,7 @@ public class LogicHandler {
     private void checkCollisionDown(Tile tile) {
         if (tile.y > player.getPosition().getY()) {
             if (checkTileCollision(tile, player)) {
-                System.out.println("valami");
                 if (tile.isSolid()) {
-                    System.out.println("collide");
                     player.setPayerPosByCollision(getPlayerPosition().getX(),tile.y - Game.TILE_SIZE);
                 }
             }
@@ -123,9 +135,7 @@ public class LogicHandler {
     private void checkCollisionUp(Tile tile) {
         if (tile.y < player.getPosition().getY()) {
             if (checkTileCollision(tile, player)) {
-                System.out.println("valami");
                 if (tile.isSolid()) {
-                    System.out.println("collide");
                     player.setPayerPosByCollision(getPlayerPosition().getX(),tile.y + Game.TILE_SIZE);
                 }
             }
@@ -134,9 +144,7 @@ public class LogicHandler {
     private void checkCollisionRight(Tile tile) {
         if (tile.x > player.getPosition().getX()) {
             if (checkTileCollision(tile, player)) {
-                System.out.println("valami");
                 if (tile.isSolid()) {
-                    System.out.println("collide");
                     player.setPayerPosByCollision(tile.x- Game.TILE_SIZE, getPlayerPosition().getY());
                 }
             }
@@ -145,9 +153,7 @@ public class LogicHandler {
     private void checkCollisionLeft(Tile tile) {
         if (tile.x < player.getPosition().getX()) {
             if (checkTileCollision(tile, player)) {
-                System.out.println("valami");
                 if (tile.isSolid()) {
-                    System.out.println("collide");
                     player.setPayerPosByCollision(tile.x + Game.TILE_SIZE, getPlayerPosition().getY());
                 }
             }
@@ -160,6 +166,7 @@ public class LogicHandler {
         player.attack();
         setPlayerDetails();
         checkCollisions();
+        skeleton.move();
     }
 
     private void setPlayerDetails() {
@@ -168,8 +175,13 @@ public class LogicHandler {
         playerPosition = player.getPosition();
         playerAttackDuration = player.getAttackDuration();
         playerCanMove = player.isMoving();
+        skeletonImage = skeleton.getImage();
+        skeletonPosition = skeleton.getPosition();
     }
 
+    public void createEnemies() {
+        skeleton = new Skeleton(1500,1500, Game.TILE_SIZE);
+    }
 
 
 }

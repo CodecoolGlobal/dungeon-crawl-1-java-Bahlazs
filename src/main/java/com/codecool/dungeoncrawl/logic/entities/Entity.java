@@ -16,7 +16,7 @@ public abstract class Entity {
     private static final int HIT_BOX_Y_OFFSET = 16;
 
     protected int size;
-    private  BufferedImage image;
+    protected BufferedImage image;
 
     protected int speed;
     protected Direction direction;
@@ -32,10 +32,8 @@ public abstract class Entity {
         direction = Direction.DOWN;
         this.speed = speed;
         this.size = size;
-        collisionIsOn = false;
         image = ImageLoader.loadImage(url);
         hitBox = new Rectangle(position.getX()+HIT_BOX_X_OFFSET, position.getY()+HIT_BOX_Y_OFFSET, HIT_BOX_SIZE, HIT_BOX_SIZE);
-
 
     }
 
@@ -55,10 +53,6 @@ public abstract class Entity {
 
     public BufferedImage getImage() {
         return image;
-    }
-
-    public Boolean isCollisionOn() {
-        return collisionIsOn;
     }
 
     public void stopMovement() {

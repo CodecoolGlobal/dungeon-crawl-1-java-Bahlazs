@@ -21,9 +21,7 @@ public class KeyHandler implements KeyListener{
         return right;
     }
 
-    public boolean isLeft() {
-        return left;
-    }
+    public boolean isLeft() { return left; }
 
     @Override
     public void keyTyped(KeyEvent e) {
