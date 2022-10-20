@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 
+import com.codecool.dungeoncrawl.logic.entities.Enemy;
 import com.codecool.dungeoncrawl.logic.entities.Entity;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
@@ -178,6 +179,7 @@ public class LogicHandler {
         setPlayerDetails();
         if (skeleton != null) {
             checkCollisions(skeleton);
+            skeleton.changeDirectionByCooldown();;
             skeleton.move();
         }
     }
