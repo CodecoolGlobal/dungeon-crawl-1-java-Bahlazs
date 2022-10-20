@@ -12,12 +12,12 @@ public class Spirit extends Enemy{
     }
 
     @Override
-    protected boolean attack() {
+    public boolean attack() {
         return false;
     }
 
     @Override
-    protected void endAttack(long time) {
+    public void endAttack(long time) {
 
     }
 

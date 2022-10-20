@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    private boolean up, down, right, left; // will have pickup
+    private boolean up, down, right, left; // TODO will have pickup
 
     public boolean isUp() {
         return up;

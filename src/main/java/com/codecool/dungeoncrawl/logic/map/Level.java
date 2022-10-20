@@ -1,6 +1,4 @@
 package com.codecool.dungeoncrawl.logic.map;
-
-import com.codecool.dungeoncrawl.logic.entities.Enemy;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
@@ -11,18 +9,18 @@ import java.util.List;
 
 public class Level {
 
-    private String levelDetailsUrl;
+    private final String levelDetailsUrl;
 
 
-    private BufferedImage background;
+    private final BufferedImage background;
 
-    private List<Skeleton> skeletons;
+    private final List<Skeleton> skeletons;
 
-    private List<Spirit> spirits;
+    private final List<Spirit> spirits;
 
-    private Player player;
+    private final Player player;
 
-    private Tile[][] tileGrid;
+    private final Tile[][] tileGrid;
 
     private final LevelBuilder levelBuilder;
 

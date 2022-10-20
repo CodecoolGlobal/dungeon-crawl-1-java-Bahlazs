@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.logic.map;
 
 import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.MouseHandler;
-import com.codecool.dungeoncrawl.logic.entities.Enemy;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
@@ -12,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LevelBuilder {
@@ -21,8 +21,6 @@ public class LevelBuilder {
     public List<List<Integer>> getLayerDetails(String url) {
 
         try {
-
-
             InputStream is = LevelBuilder.class.getResourceAsStream(url);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -43,7 +41,7 @@ public class LevelBuilder {
             return tileIds;
 
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
 
         return null;

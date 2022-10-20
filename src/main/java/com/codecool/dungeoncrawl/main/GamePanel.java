@@ -14,14 +14,12 @@ public class GamePanel extends JPanel {
     private final int height;
     LogicHandler logicH;
 
+    //actors
     private List<Drawable> enemies;
-
     private Drawable player;
 
     //player animation details
-
     private  double playerAnimationIndexX;
-
     private  double playerAnimationIndexY;
 
 
@@ -83,8 +81,10 @@ public class GamePanel extends JPanel {
     }
 
     private void drawCameraView(Graphics2D g2d) {
-        g2d.drawImage(logicH.getCurrentLevelBackGround().getSubimage(player.getPosition().getX() - (Game.SCREEN_WIDTH /2-Game.TILE_SIZE/2),
-                player.getPosition().getY() - (Game.SCREEN_HEIGHT/2- Game.TILE_SIZE/2),
+        BufferedImage levelBackground = logicH.getCurrentLevelBackGround();
+        int cameraX = player.getPosition().getX() - (Game.SCREEN_WIDTH/2 - Game.TILE_SIZE/2);
+        int cameraY = player.getPosition().getY() - (Game.SCREEN_HEIGHT/2 - Game.TILE_SIZE/2);
+        g2d.drawImage(levelBackground.getSubimage(cameraX, cameraY,
                 Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0,0, null);
     }
 

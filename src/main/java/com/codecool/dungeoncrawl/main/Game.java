@@ -34,7 +34,7 @@ public class Game implements Runnable{
         gameThread.start();
     }
 
-
+    // Game loop
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_SET;
@@ -47,7 +47,7 @@ public class Game implements Runnable{
         double deltaU = 0;
         double deltaF = 0;
 
-        while (true) {
+        while (gameThread != null) {
             long currentTime = System.nanoTime();
 
             deltaU += (currentTime - lastTime) / timePerUpdate;

@@ -23,8 +23,8 @@ public class LogicHandler {
 
     private static final String LEVEL_1_ENTITY_DATA_URL = "/Tiled-projects/blocks-level1_Entities.csv";
 
-    private KeyHandler keyH;
-    private MouseHandler mouseH;
+    private final KeyHandler keyH;
+    private final MouseHandler mouseH;
 
 
     private final Level levelOne;
@@ -32,8 +32,6 @@ public class LogicHandler {
     private Level currentLevel;
 
     private final Player player;
-
-    private Skeleton skeleton;
 
     private List<Skeleton> skeletons;
 
@@ -59,12 +57,8 @@ public class LogicHandler {
 
     public List<Drawable> getEnemies() {
         List<Drawable> enemies = new ArrayList<>();
-        for (Skeleton skeleton : skeletons) {
-            enemies.add((Drawable) skeleton);
-        }
-        for (Spirit spirit: spirits) {
-            enemies.add((Drawable) spirit);
-        }
+        enemies.addAll(skeletons);
+        enemies.addAll(spirits);
         return enemies;
     }
 
@@ -89,6 +83,8 @@ public class LogicHandler {
     public MouseHandler getMouseH() {
         return mouseH;
     }
+
+    // --------------------------------------------------------------- COLLISION ---------------------------------------------------------------------------------------
 
     private boolean checkTileCollision(Tile tile, Entity entity) {
         return entity.getHitBox().intersects(tile);
@@ -133,7 +129,7 @@ public class LogicHandler {
         if (tile.y < entity.getPosition().getY()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(entity.getPosition().getX(),tile.y + Game.TILE_SIZE);
+                    entity.setPayerPosByCollision(entity.getPosition().getX(),tile.y + Game.TILE_SIZE - Entity.HIT_BOX_Y_OFFSET);
                 }
             }
         }
@@ -142,7 +138,7 @@ public class LogicHandler {
         if (tile.x > entity.getPosition().getX()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(tile.x - Game.TILE_SIZE, entity.getPosition().getY());
+                    entity.setPayerPosByCollision(tile.x - Game.TILE_SIZE - Entity.HIT_BOX_X_OFFSET, entity.getPosition().getY());
                 }
             }
         }
@@ -151,11 +147,13 @@ public class LogicHandler {
         if (tile.x < entity.getPosition().getX()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-                    entity.setPayerPosByCollision(tile.x + Game.TILE_SIZE, entity.getPosition().getY());
+                    entity.setPayerPosByCollision(tile.x + Game.TILE_SIZE - Entity.HIT_BOX_X_OFFSET, entity.getPosition().getY());
                 }
             }
         }
     }
+
+    //------------------------------------------------------------- ACTOR ACTIONS ----------------------------------------------------------------------------
 
     private void skeletonActions() {
         if (skeletons.size() !=0) {
@@ -185,20 +183,18 @@ public class LogicHandler {
         }
     }
 
-    public void update() {
-        checkCollisions(player);
-        player.move();
-        skeletonActions();
-        spiritActions();
-        setPlayerDetails();
-
-    }
+    //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
 
     private void setPlayerDetails() {
         playerAttackDuration = player.getAttackDuration();
         playerCanMove = player.isMoving();
     }
 
-
-
+    public void update() {
+        checkCollisions(player);
+        player.move();
+        skeletonActions();
+        spiritActions();
+        setPlayerDetails();
+    }
 }
