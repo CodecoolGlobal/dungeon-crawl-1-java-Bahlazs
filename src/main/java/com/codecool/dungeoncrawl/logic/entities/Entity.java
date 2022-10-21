@@ -1,0 +1,86 @@
+package com.codecool.dungeoncrawl.logic.entities;
+
+import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.util.Direction;
+import com.codecool.dungeoncrawl.util.ImageLoader;
+import com.codecool.dungeoncrawl.util.Position;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public abstract class Entity implements Drawable {
+
+    private static final int HIT_BOX_SIZE = 32;
+
+    public static final int HIT_BOX_X_OFFSET = 8;
+
+    public static final int HIT_BOX_Y_OFFSET = 16;
+
+    protected int size;
+    protected BufferedImage image;
+
+    protected int speed;
+
+    protected Direction direction;
+    protected Position position;
+
+    protected Rectangle hitBox;
+
+    protected Boolean collisionIsOn;
+
+    public Entity(String url, int x, int y, int speed, int size) {
+        position = new Position(x,y);
+        direction = Direction.DOWN;
+        this.speed = speed;
+        this.size = size;
+        image = ImageLoader.loadImage(url);
+        hitBox = new Rectangle(position.getX()+HIT_BOX_X_OFFSET, position.getY()+HIT_BOX_Y_OFFSET, HIT_BOX_SIZE, HIT_BOX_SIZE);
+
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public Rectangle getHitBox() {
+        return hitBox;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+
+    public Position getPosition() {
+        return position;
+    }
+
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void stopMovement() {
+        speed = 0;
+    }
+
+
+    public void setPayerPosByCollision(int x, int y) {
+        position.setX(x);
+        position.setY(y);
+        hitBox.x = position.getX()+ HIT_BOX_X_OFFSET;
+        hitBox.y = position.getY()+ HIT_BOX_Y_OFFSET;
+
+    }
+
+
+
+    protected abstract boolean attack();
+    protected abstract void endAttack(long time);
+
+    public abstract void move();
+
+
+
+
+}
