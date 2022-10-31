@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.main;
 
+import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.LogicHandler;
+import com.codecool.dungeoncrawl.logic.MouseHandler;
 
 public class Game implements Runnable{
 
@@ -18,12 +20,18 @@ public class Game implements Runnable{
     private Thread gameThread;
 
 
-    private GamePanel gamePanel;
+    private final GamePanel gamePanel;
 
-    private LogicHandler logicH;
+    private final LogicHandler logicHandler;
+
+    private final MouseHandler mouseHandler;
+
+    private final KeyHandler keyHandler;
     public Game() {
-        logicH = new LogicHandler();
-        gamePanel = new GamePanel(logicH, SCREEN_WIDTH, SCREEN_HEIGHT);
+        keyHandler = new KeyHandler();
+        mouseHandler = new MouseHandler();
+        logicHandler = new LogicHandler(keyHandler, mouseHandler);
+        gamePanel = new GamePanel(logicHandler, SCREEN_WIDTH, SCREEN_HEIGHT);
         new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameThread();
@@ -61,7 +69,7 @@ public class Game implements Runnable{
             }
 
             if (deltaU >= 1) {
-                logicH.update();
+                logicHandler.update();
                 updates++;
                 deltaU--;
             }

@@ -21,8 +21,8 @@ public class LogicHandler {
 
     private static final String LEVEL_1_ENTITY_DATA_URL = "/Tiled-projects/blocks-level1_Entities.csv";
 
-    private final KeyHandler keyH;
-    private final MouseHandler mouseH;
+    private final KeyHandler keyHandler;
+    private final MouseHandler mouseHandler;
 
 
     private final Level levelOne;
@@ -41,14 +41,14 @@ public class LogicHandler {
 
     private boolean playerIsAttacking;
 
-    public LogicHandler() {
+    public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
         levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL);
         currentLevel = levelOne;
         player = levelOne.getPlayer();
         skeletons = currentLevel.getSkeletons();
         spirits = currentLevel.getSpirits();
-        this.keyH = player.getKeyH();
-        this.mouseH = player.getMouseH();
+        this.keyHandler = keyHandler;
+        this.mouseHandler = mouseHandler;
         playerCanMove = true;
     }
 
@@ -79,12 +79,12 @@ public class LogicHandler {
     }
 
 
-    public KeyHandler getKeyH() {
-        return keyH;
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
     }
 
-    public MouseHandler getMouseH() {
-        return mouseH;
+    public MouseHandler getMouseHandler() {
+        return mouseHandler;
     }
 
     // --------------------------------------------------------------- COLLISION ---------------------------------------------------------------------------------------
@@ -196,9 +196,7 @@ public class LogicHandler {
     private void spiritActions() {
         if (spirits.size() != 0) {
             for (Spirit spirit : spirits) {
-                checkCollisions(spirit);
                 spirit.checkPlayerInRange(player);
-                checkCollisions(spirit);
                 spirit.move(player);
             }
         }
@@ -213,10 +211,10 @@ public class LogicHandler {
 
     public void update() {
         checkCollisions(player);
-        player.move();
+        player.move(keyHandler);
         skeletonActions();
         spiritActions();
-        if (player.attack()) {
+        if (player.attack(mouseHandler)) {
             attackSkeleton();
             attackSpirit();
         }

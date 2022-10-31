@@ -30,9 +30,9 @@ public class GamePanel extends JPanel {
         player = logicH.getPlayer();
         setPanelSize();
         setDoubleBuffered(true);
-        addKeyListener(logicH.getKeyH());
-        addMouseListener(logicH.getMouseH());
-        addMouseMotionListener(logicH.getMouseH());
+        addKeyListener(logicH.getKeyHandler());
+        addMouseListener(logicH.getMouseHandler());
+        addMouseMotionListener(logicH.getMouseHandler());
 
     }
 
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel {
     }
 
     private void animatePlayer() {
-        if (logicH.getKeyH().isLeft() || logicH.getKeyH().isRight() || logicH.getKeyH().isUp() || logicH.getKeyH().isDown()) {
+        if (logicH.getKeyHandler().isLeft() || logicH.getKeyHandler().isRight() || logicH.getKeyHandler().isUp() || logicH.getKeyHandler().isDown()) {
             playerAnimationIndexX = player.getDirection().value;
             playerAnimationIndexY += 0.1;
             if (playerAnimationIndexY > 4) {

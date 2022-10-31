@@ -17,7 +17,7 @@ public class Spirit extends Enemy{
     }
 
     @Override
-    public void endAttack(long time) {
+    public void endAttack() {
 
     }
 
@@ -27,16 +27,7 @@ public class Spirit extends Enemy{
     }
 
     public void move(Player player) {
-        if (playerInRange) { //TODO
-            moveX(player);
-            moveY(player);
-
-        }
-    }
-
-
-    public void moveSpirit(Player player) {
-        if (playerInRange) { //TODO
+        if (playerInRange) {
             moveX(player);
             moveY(player);
 

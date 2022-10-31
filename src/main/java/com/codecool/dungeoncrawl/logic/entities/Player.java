@@ -15,9 +15,6 @@ public class Player extends  Entity{
     public static final int PLAYER_BASE_SPEED = 3;
 
 
-    private final KeyHandler keyH;
-    private final MouseHandler mouseH;
-
     private BufferedImage armoredImage;
 
 
@@ -25,22 +22,14 @@ public class Player extends  Entity{
     private boolean moving;
 
 
-    public Player(int x, int y, int size, KeyHandler keyH, MouseHandler mouseH ) {
+    public Player(int x, int y, int size) {
         super(CHARACTER_URL, x, y, PLAYER_BASE_SPEED, size);
-        this.keyH = keyH;
-        this.mouseH = mouseH;
         attackDuration = 0.4;
         moving = true;
         armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
     }
 
-    public KeyHandler getKeyH() {
-        return keyH;
-    }
 
-    public MouseHandler getMouseH() {
-        return mouseH;
-    }
 
     public double getAttackDuration() {
         return attackDuration;
@@ -53,23 +42,28 @@ public class Player extends  Entity{
 
     @Override
     public void move() {
-        if (keyH.isUp()){
+
+    }
+
+
+    public void move(KeyHandler keyHandler) {
+        if (keyHandler.isUp()){
             position.setY(position.getY() - speed);
             hitBox.y -= speed;
             direction = Direction.UP;
         }
-        else if (keyH.isDown()){
+        else if (keyHandler.isDown()){
             position.setY(position.getY() + speed);
             hitBox.y += speed;
             direction = Direction.DOWN;
 
         }
-        else if (keyH.isRight()){
+        else if (keyHandler.isRight()){
             position.setX(position.getX() + speed);
             hitBox.x += speed;
             direction = Direction.RIGHT;
         }
-        else if (keyH.isLeft()){
+        else if (keyHandler.isLeft()){
             position.setX(position.getX() - speed);
             hitBox.x -= speed;
             direction = Direction.LEFT;
@@ -80,11 +74,16 @@ public class Player extends  Entity{
 
     @Override
     public boolean attack() {
-        if (mouseH.isButtonOnePressed()) {
+        return false;
+    }
+
+
+    public boolean attack(MouseHandler mouseHandler) {
+        if (mouseHandler.isButtonOnePressed()) {
             moving = false;
             stopMovement();
             if (!moving) {
-                endAttack(mouseH.getAttackTime());
+                endAttack(mouseHandler);
             }
             return true;
         } else {
@@ -93,9 +92,14 @@ public class Player extends  Entity{
     }
 
     @Override
-    public void endAttack(long attackTime) {
-        if (attackTime + (attackDuration*1000) <= System.currentTimeMillis()) {
-            mouseH.setAttacking(false);
+    public void endAttack() {
+
+    }
+
+
+    public void endAttack(MouseHandler mouseHandler) {
+        if (mouseHandler.getAttackTime() + (attackDuration*1000) <= System.currentTimeMillis()) {
+            mouseHandler.setAttacking(false);
             speed = PLAYER_BASE_SPEED;
             moving = true;
 

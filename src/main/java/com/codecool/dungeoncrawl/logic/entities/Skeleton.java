@@ -18,7 +18,7 @@ public class Skeleton extends Enemy {
     }
 
     @Override
-    public void endAttack(long time) {
+    public void endAttack() {
 
     }
 

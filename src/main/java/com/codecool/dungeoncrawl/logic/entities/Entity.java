@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
@@ -76,7 +77,7 @@ public abstract class Entity implements Drawable {
 
 
     protected abstract boolean attack();
-    protected abstract void endAttack(long time);
+    protected abstract void endAttack();
 
     public abstract void move();
 

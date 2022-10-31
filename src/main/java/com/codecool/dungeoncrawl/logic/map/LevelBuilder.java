@@ -89,7 +89,7 @@ public class LevelBuilder {
         for (int i = 0; i < tileIds.size(); i++) {
             for (int j = 0; j < tileIds.get(i).size(); j++) {
                 if (tileIds.get(i).get(j) == 394) {
-                    player = new Player(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, new KeyHandler(), new MouseHandler());
+                    player = new Player(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE);
                 }
             }
         }
