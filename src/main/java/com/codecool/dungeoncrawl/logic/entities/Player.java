@@ -20,6 +20,7 @@ public class Player extends  Entity{
 
     private final double attackDuration;
     private boolean moving;
+    private int hp = 100;
 
 
     public Player(int x, int y, int size) {
@@ -104,5 +105,9 @@ public class Player extends  Entity{
             moving = true;
 
         }
+    }
+
+    public int getHp() {
+        return this.hp;
     }
 }
