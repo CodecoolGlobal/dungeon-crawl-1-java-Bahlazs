@@ -10,16 +10,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class SerializePlayer {
-    public void serialize(Player player) {
+    public static void serialize(Player player) {
         try {
-            new Gson().toJson(player, new FileWriter("src/resources/player/player.json"));
+            new Gson().toJson(player, new FileWriter("/home/bahzsi/CodeCool/oop/unit.15/dungeon-crawl-1-java-Bahlazs/src/main/resources/player-save/player.json"));
             System.out.println("Saved to player.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Player getFromJSON() {
+    public static Player getFromJSON() {
         try {
             Reader reader = Files.newBufferedReader(Paths.get("player.json"));
             // convert the JSON string to a Player object

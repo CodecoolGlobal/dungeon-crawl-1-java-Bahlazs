@@ -108,7 +108,6 @@ public class GamePanel extends JPanel {
     private void drawItems (Graphics2D g2d) {
         List<Drawable> items = logicH.getItems();
         if(items.size() != 0) {
-            System.out.println("item is drawn");
             for (Drawable item: items) {
                 int itemXScreenPos = item.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
                 int itemYScreenPos = item.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);

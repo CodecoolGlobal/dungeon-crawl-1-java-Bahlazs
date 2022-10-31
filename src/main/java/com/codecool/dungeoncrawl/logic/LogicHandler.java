@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 
+import com.codecool.dungeoncrawl.dao.SerializePlayer;
 import com.codecool.dungeoncrawl.logic.entities.*;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.map.Level;
@@ -202,6 +203,12 @@ public class LogicHandler {
             }
         }
     }
+    //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
+
+        public void saveGame() {
+            SerializePlayer.serialize(player);
+        }
+
     //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
 
     private void setPlayerDetails() {
@@ -217,6 +224,9 @@ public class LogicHandler {
         if (player.attack(mouseHandler)) {
             attackSkeleton();
             attackSpirit();
+        }
+        if (keyHandler.ismPressed()) {
+            saveGame();
         }
         setPlayerDetails();
     }
