@@ -65,13 +65,13 @@ public class Game implements Runnable{
                 updates++;
                 deltaU--;
             }
-
-            if (System.currentTimeMillis()-lastChecked >= 1000) {
-                lastChecked = System.currentTimeMillis();
-                System.out.println("FPS:" + frames + " | UPS:" + updates);
-                frames = 0;
-                updates = 0;
-            }
+////
+////            if (System.currentTimeMillis()-lastChecked >= 1000) {
+////                lastChecked = System.currentTimeMillis();
+////                System.out.println("FPS:" + frames + " | UPS:" + updates);
+////                frames = 0;
+////                updates = 0;
+//            }
         }
     }
 }

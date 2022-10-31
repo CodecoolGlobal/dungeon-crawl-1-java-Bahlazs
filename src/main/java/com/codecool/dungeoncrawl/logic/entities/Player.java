@@ -9,8 +9,10 @@ import java.awt.image.BufferedImage;
 
 public class Player extends  Entity{
 
-    private static final String CHARACTER_URL = "/player/Samurai.png";
-    private static final String ARMORED_CHARACTER_URL = "/player/Samurai-armored.png";
+    public static final String CHARACTER_URL = "/player/Samurai.png";
+    public static final String ARMORED_CHARACTER_URL = "/player/Samurai-armored.png";
+
+    public static final int PLAYER_BASE_SPEED = 3;
 
 
     private final KeyHandler keyH;
@@ -19,12 +21,12 @@ public class Player extends  Entity{
     private BufferedImage armoredImage;
 
 
-    private double attackDuration;
+    private final double attackDuration;
     private boolean moving;
 
 
     public Player(int x, int y, int size, KeyHandler keyH, MouseHandler mouseH ) {
-        super(CHARACTER_URL, x, y, 3, size);
+        super(CHARACTER_URL, x, y, PLAYER_BASE_SPEED, size);
         this.keyH = keyH;
         this.mouseH = mouseH;
         attackDuration = 0.7;
@@ -56,18 +58,18 @@ public class Player extends  Entity{
             hitBox.y -= speed;
             direction = Direction.UP;
         }
-        if (keyH.isDown()){
+        else if (keyH.isDown()){
             position.setY(position.getY() + speed);
             hitBox.y += speed;
             direction = Direction.DOWN;
 
         }
-        if (keyH.isRight()){
+        else if (keyH.isRight()){
             position.setX(position.getX() + speed);
             hitBox.x += speed;
             direction = Direction.RIGHT;
         }
-        if (keyH.isLeft()){
+        else if (keyH.isLeft()){
             position.setX(position.getX() - speed);
             hitBox.x -= speed;
             direction = Direction.LEFT;

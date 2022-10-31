@@ -26,6 +26,15 @@ public class Spirit extends Enemy{
 
     }
 
+    public void move(Player player) {
+        if (playerInRange) { //TODO
+            moveX(player);
+            moveY(player);
+
+        }
+    }
+
+
     public void moveSpirit(Player player) {
         if (playerInRange) { //TODO
             moveX(player);

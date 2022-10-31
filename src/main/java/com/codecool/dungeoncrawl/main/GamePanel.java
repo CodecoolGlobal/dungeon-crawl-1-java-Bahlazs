@@ -15,7 +15,7 @@ public class GamePanel extends JPanel {
     LogicHandler logicH;
 
     //actors
-    private List<Drawable> enemies;
+
     private Drawable player;
 
     //player animation details
@@ -28,7 +28,6 @@ public class GamePanel extends JPanel {
         this.height = height;
         this.logicH = logicH;
         player = logicH.getPlayer();
-        enemies = logicH.getEnemies();
         setPanelSize();
         setDoubleBuffered(true);
         addKeyListener(logicH.getKeyH());
@@ -70,13 +69,11 @@ public class GamePanel extends JPanel {
                 playerAnimationIndexY = 0;
             }
         }
-        if (logicH.getMouseH().isButtonOnePressed()) {
+        if (logicH.playerIsAttacking()) {
             playerAnimationIndexY = 4;
         }
-        if (!logicH.canPlayerMove()) {
-            if ((logicH.getMouseH().getAttackTime() + (logicH.getPlayerAttackDuration()*1000) <= System.currentTimeMillis())) {
-                playerAnimationIndexY = 0;
-            }
+        if (!logicH.playerIsAttacking() && playerAnimationIndexY >= 4) {
+            playerAnimationIndexY = 0;
         }
     }
 
@@ -96,13 +93,16 @@ public class GamePanel extends JPanel {
     }
 
     private void drawEnemies(Graphics2D g2d) {
+        List<Drawable> enemies = logicH.getEnemies();
         if(enemies.size() != 0) {
             for (Drawable enemy : enemies) {
-                int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
-                int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
-                g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
-                enemyXScreenPos,
-                enemyYScreenPos, null);
+                if (enemy != null) {
+                    int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
+                    int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
+                    g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
+                            enemyXScreenPos,
+                            enemyYScreenPos, null);
+                }
             }
         }
     }
