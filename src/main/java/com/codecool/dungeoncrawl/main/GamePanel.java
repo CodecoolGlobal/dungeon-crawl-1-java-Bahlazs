@@ -96,13 +96,11 @@ public class GamePanel extends JPanel {
         List<Drawable> enemies = logicH.getEnemies();
         if(enemies.size() != 0) {
             for (Drawable enemy : enemies) {
-                if (enemy != null) {
                     int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
                     int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
                     g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
                             enemyXScreenPos,
                             enemyYScreenPos, null);
-                }
             }
         }
     }
@@ -114,6 +112,7 @@ public class GamePanel extends JPanel {
         drawCameraView(g2d);
         drawEnemies(g2d);
         drawPlayer(g2d);
+
 
     }
 

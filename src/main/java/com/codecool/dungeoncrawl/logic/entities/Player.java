@@ -29,7 +29,7 @@ public class Player extends  Entity{
         super(CHARACTER_URL, x, y, PLAYER_BASE_SPEED, size);
         this.keyH = keyH;
         this.mouseH = mouseH;
-        attackDuration = 0.7;
+        attackDuration = 0.4;
         moving = true;
         armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
     }
@@ -96,7 +96,7 @@ public class Player extends  Entity{
     public void endAttack(long attackTime) {
         if (attackTime + (attackDuration*1000) <= System.currentTimeMillis()) {
             mouseH.setAttacking(false);
-            speed = 2;
+            speed = PLAYER_BASE_SPEED;
             moving = true;
 
         }

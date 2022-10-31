@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 
-import com.codecool.dungeoncrawl.logic.entities.Entity;
-import com.codecool.dungeoncrawl.logic.entities.Player;
-import com.codecool.dungeoncrawl.logic.entities.Skeleton;
-import com.codecool.dungeoncrawl.logic.entities.Spirit;
+import com.codecool.dungeoncrawl.logic.entities.*;
 import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
@@ -12,6 +9,7 @@ import com.codecool.dungeoncrawl.util.Direction;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class LogicHandler {
@@ -60,7 +58,12 @@ public class LogicHandler {
 
     public List<Drawable> getEnemies() {
         List<Drawable> enemies = new ArrayList<>();
-        enemies.addAll(skeletons);
+        for (Skeleton skeleton : skeletons) {
+            if (skeleton != null) {
+                enemies.add(skeleton);
+            }
+        }
+//        enemies.addAll(skeletons);
         enemies.addAll(spirits);
         return enemies;
     }
@@ -140,9 +143,7 @@ public class LogicHandler {
         if (tile.x >= entity.getPosition().getX()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-
                     entity.setPayerPosByCollision(tile.x - (Game.TILE_SIZE - Entity.HIT_BOX_X_OFFSET), entity.getPosition().getY());
-
                 }
             }
         }
@@ -152,9 +153,7 @@ public class LogicHandler {
         if (tile.x < entity.getPosition().getX()) {
             if (checkTileCollision(tile, entity)) {
                 if (tile.isSolid()) {
-
                     entity.setPayerPosByCollision(tile.x + (Game.TILE_SIZE - Entity.HIT_BOX_X_OFFSET), entity.getPosition().getY());
-
                 }
             }
         }
@@ -163,39 +162,33 @@ public class LogicHandler {
     //------------------------------------------------------------- ACTOR ACTIONS ----------------------------------------------------------------------------
 
     private void attackSkeleton() {
-        for (Skeleton skeleton : skeletons) {
-            if (skeleton != null) {
-                if (player.attack()) {
-                    if (checkEntityCollision(player, skeleton)) {
-                        System.out.println("HIT!!!!!!!!!");
-                        skeleton = null;
-                    }
-                }
+        Iterator<Skeleton> it = skeletons.iterator();
+        while (it.hasNext()) {
+            if (checkEntityCollision(player, it.next())) {
+                System.out.println("HIT!!!!!!!!!");
+                it.remove();
+                break;
             }
         }
     }
 
     private void skeletonActions() {
-        List<Skeleton> deadSkeletons = new ArrayList<>();
         if (skeletons.size() != 0) {
             for (Skeleton skeleton : skeletons) {
                 checkCollisions(skeleton);
                 skeleton.move();
-                attackSkeleton();
             }
 
         }
-        skeletons.removeAll(deadSkeletons);
     }
 
     private void attackSpirit() {
-        for (Spirit spirit : spirits) {
-            if (spirit != null) {
-                if (player.attack()) {
-                    if (checkEntityCollision(player, spirit)) {
-                        spirit = null;
-                    }
-                }
+        Iterator<Spirit> it = spirits.iterator();
+        while (it.hasNext()) {
+            if (checkEntityCollision(player, it.next())) {
+                System.out.println("HIT!!!!!!!!!");
+                it.remove();
+                break;
             }
         }
     }
@@ -207,23 +200,26 @@ public class LogicHandler {
                 spirit.checkPlayerInRange(player);
                 checkCollisions(spirit);
                 spirit.move(player);
-                attackSpirit();
-                }
             }
         }
-        //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
-
-        private void setPlayerDetails () {
-            playerAttackDuration = player.getAttackDuration();
-            playerCanMove = player.isMoving();
-            playerIsAttacking = player.attack();
-        }
-
-        public void update () {
-            checkCollisions(player);
-            player.move();
-            skeletonActions();
-            spiritActions();
-            setPlayerDetails();
-        }
     }
+    //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
+
+    private void setPlayerDetails() {
+        playerAttackDuration = player.getAttackDuration();
+        playerCanMove = player.isMoving();
+        playerIsAttacking = player.attack();
+    }
+
+    public void update() {
+        checkCollisions(player);
+        player.move();
+        skeletonActions();
+        spiritActions();
+        if (player.attack()) {
+            attackSkeleton();
+            attackSpirit();
+        }
+        setPlayerDetails();
+    }
+}

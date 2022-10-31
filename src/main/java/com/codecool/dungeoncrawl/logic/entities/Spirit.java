@@ -46,16 +46,20 @@ public class Spirit extends Enemy{
     private void moveX(Player player) {
         if (this.position.getX() < player.position.getX()) {
             this.position.setX(this.position.getX() + speed);
+            this.getHitBox().x += speed;
         } else {
             this.position.setX(this.position.getX() - speed);
+            this.getHitBox().x -= speed;
         }
     }
 
     private void moveY(Player player) {
         if (this.position.getY() < player.position.getY()) {
             this.position.setY(this.position.getY() + speed);
+            this.getHitBox().y += speed;
         } else {
             this.position.setY(this.position.getY() - speed);
+            this.getHitBox().y -= speed;
         }
     }
 
