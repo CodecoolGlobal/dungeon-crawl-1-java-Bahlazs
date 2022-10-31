@@ -15,7 +15,7 @@ public class GamePanel extends JPanel {
     LogicHandler logicH;
 
     //actors
-    private List<Drawable> enemies;
+
     private Drawable player;
 
     //player animation details
@@ -28,12 +28,11 @@ public class GamePanel extends JPanel {
         this.height = height;
         this.logicH = logicH;
         player = logicH.getPlayer();
-        enemies = logicH.getEnemies();
         setPanelSize();
         setDoubleBuffered(true);
-        addKeyListener(logicH.getKeyH());
-        addMouseListener(logicH.getMouseH());
-        addMouseMotionListener(logicH.getMouseH());
+        addKeyListener(logicH.getKeyHandler());
+        addMouseListener(logicH.getMouseHandler());
+        addMouseMotionListener(logicH.getMouseHandler());
 
     }
 
@@ -63,20 +62,18 @@ public class GamePanel extends JPanel {
     }
 
     private void animatePlayer() {
-        if (logicH.getKeyH().isLeft() || logicH.getKeyH().isRight() || logicH.getKeyH().isUp() || logicH.getKeyH().isDown()) {
+        if (logicH.getKeyHandler().isLeft() || logicH.getKeyHandler().isRight() || logicH.getKeyHandler().isUp() || logicH.getKeyHandler().isDown()) {
             playerAnimationIndexX = player.getDirection().value;
             playerAnimationIndexY += 0.1;
             if (playerAnimationIndexY > 4) {
                 playerAnimationIndexY = 0;
             }
         }
-        if (logicH.getMouseH().isButtonOnePressed()) {
+        if (logicH.playerIsAttacking()) {
             playerAnimationIndexY = 4;
         }
-        if (!logicH.canPlayerMove()) {
-            if ((logicH.getMouseH().getAttackTime() + (logicH.getPlayerAttackDuration()*1000) <= System.currentTimeMillis())) {
-                playerAnimationIndexY = 0;
-            }
+        if (!logicH.playerIsAttacking() && playerAnimationIndexY >= 4) {
+            playerAnimationIndexY = 0;
         }
     }
 
@@ -96,13 +93,26 @@ public class GamePanel extends JPanel {
     }
 
     private void drawEnemies(Graphics2D g2d) {
+        List<Drawable> enemies = logicH.getEnemies();
         if(enemies.size() != 0) {
             for (Drawable enemy : enemies) {
-                int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
-                int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
-                g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
-                enemyXScreenPos,
-                enemyYScreenPos, null);
+                    int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
+                    int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
+                    g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
+                            enemyXScreenPos,
+                            enemyYScreenPos, null);
+            }
+        }
+    }
+
+    private void drawItems (Graphics2D g2d) {
+        List<Drawable> items = logicH.getItems();
+        if(items.size() != 0) {
+            System.out.println("item is drawn");
+            for (Drawable item: items) {
+                int itemXScreenPos = item.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
+                int itemYScreenPos = item.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
+                g2d.drawImage(item.getImage(), itemXScreenPos, itemYScreenPos, null);
             }
         }
     }
@@ -113,7 +123,9 @@ public class GamePanel extends JPanel {
         animatePlayer();
         drawCameraView(g2d);
         drawEnemies(g2d);
+        drawItems(g2d);
         drawPlayer(g2d);
+
 
     }
 

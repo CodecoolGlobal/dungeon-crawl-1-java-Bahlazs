@@ -7,7 +7,7 @@ public class Skeleton extends Enemy {
 
 
     public Skeleton(int x, int y, int size) {
-        super(CHARACTER_URL, x, y, 2, size);
+        super(CHARACTER_URL, x, y, 1, size);
         this.directionCoolDown = 0;
 
     }
@@ -18,7 +18,7 @@ public class Skeleton extends Enemy {
     }
 
     @Override
-    public void endAttack(long time) {
+    public void endAttack() {
 
     }
 

@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
@@ -12,9 +13,9 @@ public abstract class Entity implements Drawable {
 
     private static final int HIT_BOX_SIZE = 32;
 
-    public static final int HIT_BOX_X_OFFSET = 8;
+    public static final int HIT_BOX_X_OFFSET = 16;
 
-    public static final int HIT_BOX_Y_OFFSET = 16;
+    public static final int HIT_BOX_Y_OFFSET = 32;
 
     protected int size;
     protected BufferedImage image;
@@ -76,7 +77,7 @@ public abstract class Entity implements Drawable {
 
 
     protected abstract boolean attack();
-    protected abstract void endAttack(long time);
+    protected abstract void endAttack();
 
     public abstract void move();
 
