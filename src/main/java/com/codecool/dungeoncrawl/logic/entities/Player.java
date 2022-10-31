@@ -21,9 +21,10 @@ public class Player extends  Entity{
 
     private double attackDuration;
     private boolean moving;
+    private int hp = 100;
 
 
-    public Player(int x, int y, int size, KeyHandler keyH, MouseHandler mouseH ) {
+    public Player(int x, int y, int size, KeyHandler keyH, MouseHandler mouseH) {
         super(CHARACTER_URL, x, y, 3, size);
         this.keyH = keyH;
         this.mouseH = mouseH;
@@ -98,5 +99,9 @@ public class Player extends  Entity{
             moving = true;
 
         }
+    }
+
+    public int getHp() {
+        return this.hp;
     }
 }
