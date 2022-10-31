@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
+import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.main.Game;
 
 import java.io.BufferedReader;
@@ -55,6 +57,9 @@ public class LevelBuilder {
                 if (tileIds.get(i).get(j) == 395) {
                     tileGrid[i][j].setSolid();
                 }
+                if (tileIds.get(i).get(j) == 25) {
+                    tileGrid[i][j].setSolid();
+                }
             }
         }
         return tileGrid;
@@ -95,5 +100,19 @@ public class LevelBuilder {
         }
         return player;
     }
+
+    public List<Item> createItems(List<List<Integer>> tileIds) {
+        List<Item> items = new ArrayList<>();
+        for (int i = 0; i < tileIds.size(); i++) {
+            for (int j = 0; j < tileIds.get(i).size(); j++) {
+                if (tileIds.get(i).get(j) == 25) {
+
+                    items.add(new Armor(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/armor.png"));
+                }
+            }
+        }
+        return items;
+    }
 }
+
 

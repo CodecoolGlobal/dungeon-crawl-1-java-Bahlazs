@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 
 import com.codecool.dungeoncrawl.logic.entities.*;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
@@ -35,9 +36,10 @@ public class LogicHandler {
 
     private List<Spirit> spirits;
 
+    private List<Item> items;
+
     private double playerAttackDuration;
 
-    private boolean playerCanMove;
 
     private boolean playerIsAttacking;
 
@@ -47,9 +49,10 @@ public class LogicHandler {
         player = levelOne.getPlayer();
         skeletons = currentLevel.getSkeletons();
         spirits = currentLevel.getSpirits();
+        items = currentLevel.getItems();
         this.keyHandler = keyHandler;
         this.mouseHandler = mouseHandler;
-        playerCanMove = true;
+
     }
 
     public Drawable getPlayer() {
@@ -58,16 +61,14 @@ public class LogicHandler {
 
     public List<Drawable> getEnemies() {
         List<Drawable> enemies = new ArrayList<>();
-        for (Skeleton skeleton : skeletons) {
-            if (skeleton != null) {
-                enemies.add(skeleton);
-            }
-        }
-//        enemies.addAll(skeletons);
+        enemies.addAll(skeletons);
         enemies.addAll(spirits);
         return enemies;
     }
 
+    public List<Drawable> getItems() {
+        return new ArrayList<>(items);
+    }
 
     public BufferedImage getCurrentLevelBackGround() {
         return currentLevel.getBackground();
@@ -205,7 +206,6 @@ public class LogicHandler {
 
     private void setPlayerDetails() {
         playerAttackDuration = player.getAttackDuration();
-        playerCanMove = player.isMoving();
         playerIsAttacking = player.attack();
     }
 
