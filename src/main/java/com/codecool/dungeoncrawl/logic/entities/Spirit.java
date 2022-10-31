@@ -23,16 +23,50 @@ public class Spirit extends Enemy{
 
     @Override
     public void move() {
+
+    }
+
+    public void moveSpirit(Player player) {
         if (playerInRange) { //TODO
+            moveX(player);
+            moveY(player);
 
         }
     }
 
+    private void moveX(Player player) {
+        if (this.position.getX() < player.position.getX()) {
+            this.position.setX(this.position.getX() + speed);
+        } else {
+            this.position.setX(this.position.getX() - speed);
+        }
+    }
+
+    private void moveY(Player player) {
+        if (this.position.getY() < player.position.getY()) {
+            this.position.setY(this.position.getY() + speed);
+        } else {
+            this.position.setY(this.position.getY() - speed);
+        }
+    }
+
     public void checkPlayerInRange(Player player) {
-        if (Math.abs(player.getPosition().getX() - hitBox.x) <= range && Math.abs(player.getPosition().getY() - hitBox.y) <= range ) { //TODO
+        if (checkDiagonal(player) || checkHorizontal(player) || checkVertical(player)) {
             playerInRange = true;
         } else {
             playerInRange = false;
         }
     }
+
+    private boolean checkDiagonal (Player player) {
+        return Math.abs(player.getPosition().getX() - hitBox.x) <= range && Math.abs(player.getPosition().getY() - hitBox.y) <= range;
+    }
+    private boolean checkHorizontal (Player player) {
+        return (player.getPosition().getX() == hitBox.x && (Math.abs(player.getPosition().getY() - hitBox.y) <= range));
+    }
+
+    private boolean checkVertical (Player player) {
+        return (player.getPosition().getY() == hitBox.y && (Math.abs(player.getPosition().getX() - hitBox.x) <= range));
+    }
 }
+

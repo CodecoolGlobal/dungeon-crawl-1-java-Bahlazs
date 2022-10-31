@@ -173,7 +173,8 @@ public class LogicHandler {
         if (spirits.size() !=0) {
             for (Spirit spirit : spirits) {
                 checkCollisions(spirit);
-                spirit.move();
+                spirit.checkPlayerInRange(player);
+                spirit.moveSpirit(player);
                 if (player.attack()) {
                     if (checkEntityCollision(player, spirit)) {
 //                        spirits.remove(spirit); TODO needs fixing
