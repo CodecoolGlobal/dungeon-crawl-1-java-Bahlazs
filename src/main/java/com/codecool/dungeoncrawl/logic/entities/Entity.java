@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
+import com.google.gson.annotations.Expose;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ public abstract class Entity implements Drawable {
     protected int speed;
 
     protected Direction direction;
+    @Expose
     protected Position position;
 
     protected Rectangle hitBox;

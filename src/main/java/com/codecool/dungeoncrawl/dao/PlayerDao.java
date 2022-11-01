@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.entities.Player;
-//import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import java.util.List;
+//import com.codecool.dungeoncrawl.model.PlayerModel;
+
+//import java.util.List;
 
 public interface PlayerDao {
 //    void add(PlayerModel player);

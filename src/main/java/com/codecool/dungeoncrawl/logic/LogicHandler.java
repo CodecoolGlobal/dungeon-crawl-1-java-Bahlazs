@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.dao.SerializePlayer;
 import com.codecool.dungeoncrawl.logic.entities.*;
 import com.codecool.dungeoncrawl.logic.items.Item;
@@ -10,6 +11,7 @@ import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
 
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -215,6 +217,10 @@ public class LogicHandler {
     //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
 
         public void saveGame() {
+            GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
+            gameDatabaseManager.setup();
+//            gameDatabaseManager.savePlayer(player);
+            Player player = gameDatabaseManager.getPlayer();
             SerializePlayer.serialize(player);
         }
 

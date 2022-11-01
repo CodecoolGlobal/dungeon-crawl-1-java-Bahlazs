@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.map;
 
-import com.codecool.dungeoncrawl.logic.KeyHandler;
-import com.codecool.dungeoncrawl.logic.MouseHandler;
+//import com.codecool.dungeoncrawl.logic.KeyHandler;
+//import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;

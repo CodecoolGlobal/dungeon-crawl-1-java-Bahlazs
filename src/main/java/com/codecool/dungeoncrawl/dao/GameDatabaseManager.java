@@ -6,13 +6,18 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
 
-    public void setup() throws SQLException {
-        DataSource dataSource = connect();
-        playerDao = new PlayerDaoJdbc(dataSource);
+    public void setup() {
+        try {
+            DataSource dataSource = connect();
+            playerDao = new PlayerDaoJdbc(dataSource);
+        } catch (SQLException e) {
+            System.out.println("Connection failed");
+        }
     }
 
 //    public void savePlayer(Player player) {
@@ -28,8 +33,8 @@ public class GameDatabaseManager {
         playerDao.update(player);
     }
 
-    public void getPlayer() {
-        playerDao.get();
+    public Player getPlayer() {
+        return playerDao.get();
     }
 
     private DataSource connect() throws SQLException {
@@ -40,6 +45,9 @@ public class GameDatabaseManager {
         String dbName = System.getenv("DB_NAME");
         String user = System.getenv("USER");
         String password = System.getenv("PASSWORD");
+        System.out.println(dbName);
+        System.out.println(user);
+        System.out.println(password);
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);

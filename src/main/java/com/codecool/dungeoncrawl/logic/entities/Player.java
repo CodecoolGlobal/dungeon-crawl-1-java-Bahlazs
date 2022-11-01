@@ -7,12 +7,13 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
+import com.google.gson.annotations.Expose;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends  Entity{
+public class Player extends Entity {
 
     public static final String CHARACTER_URL = "/player/Samurai.png";
     public static final String ARMORED_CHARACTER_URL = "/player/Samurai-armored.png";
@@ -26,6 +27,7 @@ public class Player extends  Entity{
 
     private final double attackDuration;
     private boolean moving;
+    @Expose
     private int hp = 100;
 
 

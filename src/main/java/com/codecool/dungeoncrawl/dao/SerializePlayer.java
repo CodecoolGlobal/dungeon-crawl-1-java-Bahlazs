@@ -2,17 +2,24 @@ package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SerializePlayer {
+//    opens java.awt.image.BufferedImage to com.google.gson; -- module-info.java ??
     public static void serialize(Player player) {
-        try {
-            new Gson().toJson(player, new FileWriter("/home/bahzsi/CodeCool/oop/unit.15/dungeon-crawl-1-java-Bahlazs/src/main/resources/player-save/player.json"));
+        try (FileWriter writer = new FileWriter("./src/main/resources/player-save/player.json")) {
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            gson.toJson(player, writer);
             System.out.println("Saved to player.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
