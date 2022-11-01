@@ -6,20 +6,11 @@ public class Spirit extends Enemy{
     private final int range;
     private boolean playerInRange;
 
-    public Spirit(int x, int y, int size) {
-        super(CHARACTER_URL, x, y, 2, size);
+    public Spirit(int x, int y, int size, double attackCooldown) {
+        super(CHARACTER_URL, x, y, 2, size, attackCooldown);
         this.range = 300;
     }
 
-    @Override
-    public boolean attack() {
-        return false;
-    }
-
-    @Override
-    public void endAttack() {
-
-    }
 
     @Override
     public void move() {

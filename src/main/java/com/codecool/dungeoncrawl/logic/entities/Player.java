@@ -75,13 +75,9 @@ public class Player extends  Entity{
 
     }
 
-    @Override
-    public boolean attack() {
-        return false;
-    }
 
 
-    public boolean attack(MouseHandler mouseHandler) {
+    public boolean playerAttack(MouseHandler mouseHandler) {
         if (mouseHandler.isButtonOnePressed()) {
             moving = false;
             stopMovement();
@@ -94,11 +90,12 @@ public class Player extends  Entity{
         }
     }
 
-    @Override
-    public void endAttack() {
-
+    public void raiseHp(int amount) {
+        this.hp += amount;
     }
-
+    public void damagePlayer(int amount) {
+        this.hp -= amount;
+    }
 
     public void endAttack(MouseHandler mouseHandler) {
         if (mouseHandler.getAttackTime() + (attackDuration*1000) <= System.currentTimeMillis()) {
@@ -118,7 +115,7 @@ public class Player extends  Entity{
             if (item instanceof Armor) {
                 image = armoredImage;
                 item.setPickedUpTrue();
-                hp += 10;
+                raiseHp(10);
             }
         }
     }

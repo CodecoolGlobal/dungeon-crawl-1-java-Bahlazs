@@ -6,21 +6,12 @@ public class Skeleton extends Enemy {
 
 
 
-    public Skeleton(int x, int y, int size) {
-        super(CHARACTER_URL, x, y, 1, size);
+    public Skeleton(int x, int y, int size, double attackCooldown) {
+        super(CHARACTER_URL, x, y, 1, size, attackCooldown);
         this.directionCoolDown = 0;
 
     }
 
-    @Override
-    public boolean attack() {
-    return true;
-    }
-
-    @Override
-    public void endAttack() {
-
-    }
 
     @Override
     public void move() {

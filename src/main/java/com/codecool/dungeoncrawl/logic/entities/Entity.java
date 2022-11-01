@@ -73,12 +73,6 @@ public abstract class Entity implements Drawable {
         hitBox.y = position.getY()+ HIT_BOX_Y_OFFSET;
 
     }
-
-
-
-    protected abstract boolean attack();
-    protected abstract void endAttack();
-
     public abstract void move();
 
 

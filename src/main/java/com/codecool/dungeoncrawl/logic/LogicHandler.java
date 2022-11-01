@@ -125,9 +125,7 @@ public class LogicHandler {
                 if (entity.getDirection() == Direction.RIGHT) {
                     checkCollisionRight(currentLevel.getTileGrid()[i][j], entity);
                 }
-
             }
-
         }
     }
 
@@ -171,9 +169,9 @@ public class LogicHandler {
         }
     }
 
-    //------------------------------------------------------------- ACTOR ACTIONS ----------------------------------------------------------------------------
+    //------------------------------------------------------------- ENTITY ACTIONS ----------------------------------------------------------------------------
 
-    private void attackSkeleton() {
+    private void destroySkeleton() {
         Iterator<Skeleton> it = skeletons.iterator();
         while (it.hasNext()) {
             if (checkEntityCollision(player, it.next())) {
@@ -189,12 +187,12 @@ public class LogicHandler {
             for (Skeleton skeleton : skeletons) {
                 checkCollisions(skeleton);
                 skeleton.move();
+                skeleton.attack(checkEntityCollision(player,skeleton),player);
             }
-
         }
     }
 
-    private void attackSpirit() {
+    private void destroySpirit() {
         Iterator<Spirit> it = spirits.iterator();
         while (it.hasNext()) {
             if (checkEntityCollision(player, it.next())) {
@@ -210,6 +208,7 @@ public class LogicHandler {
             for (Spirit spirit : spirits) {
                 spirit.checkPlayerInRange(player);
                 spirit.move(player);
+                spirit.attack(checkEntityCollision(player,spirit),player);
             }
         }
     }
@@ -223,7 +222,7 @@ public class LogicHandler {
 
     private void setPlayerDetails() {
         playerAttackDuration = player.getAttackDuration();
-        playerIsAttacking = player.attack(mouseHandler);
+        playerIsAttacking = player.playerAttack(mouseHandler);
     }
 
     public void update() {
@@ -234,14 +233,12 @@ public class LogicHandler {
         spiritActions();
         player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
         currentLevel.clearPickedUpItems();
-        if (player.attack(mouseHandler)) {
-            attackSkeleton();
-            attackSpirit();
+        if (player.playerAttack(mouseHandler)) {
+            destroySkeleton();
+            destroySpirit();
         }
         if (keyHandler.mIsPressed()) {
             saveGame();
         }
     }
-
-
 }
