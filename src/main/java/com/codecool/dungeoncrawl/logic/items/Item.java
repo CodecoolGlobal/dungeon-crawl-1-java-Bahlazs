@@ -56,4 +56,8 @@ public abstract class Item implements Drawable {
     public void setPickedUpTrue() {
         pickedUp = true;
     }
+
+    public String getName() {
+        return name;
+    }
 }

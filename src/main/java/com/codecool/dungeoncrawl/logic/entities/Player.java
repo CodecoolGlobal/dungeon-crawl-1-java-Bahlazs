@@ -4,10 +4,12 @@ import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class Player extends  Entity{
 
@@ -16,6 +18,7 @@ public class Player extends  Entity{
 
     public static final int PLAYER_BASE_SPEED = 3;
 
+    private List<String> inventory;
 
     private BufferedImage armoredImage;
 
@@ -113,10 +116,23 @@ public class Player extends  Entity{
     public void pickUp(Item item, boolean eIsPressed) {
         if (eIsPressed) {
             if (item instanceof Armor) {
-                image = armoredImage;
-                item.setPickedUpTrue();
-                raiseHp(10);
+                pickUpArmor(item);
+            }
+            if (item instanceof Key) {
+                pickUpKey(item);
             }
         }
+    }
+
+    private void pickUpKey(Item item) { //TODO!
+
+        inventory.add(item.getName());
+    }
+
+    private void pickUpArmor(Item item) {
+        image = armoredImage;
+        item.setPickedUpTrue();
+        raiseHp(10);
+        inventory.add(item.getName());
     }
 }
