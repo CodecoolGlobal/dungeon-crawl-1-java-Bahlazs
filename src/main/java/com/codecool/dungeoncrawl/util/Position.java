@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.util;
 
+import com.google.gson.annotations.Expose;
+
 public class Position {
-
+    @Expose
     private int x;
-
+    @Expose
     private int y;
 
     public Position(int x, int y) {

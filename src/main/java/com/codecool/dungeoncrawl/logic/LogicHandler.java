@@ -216,12 +216,14 @@ public class LogicHandler {
     }
     //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
 
-        public void saveGame() {
+    // test
+    public void saveGame() {
             GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
             gameDatabaseManager.setup();
 //            gameDatabaseManager.savePlayer(player);
             Player player = gameDatabaseManager.getPlayer();
             SerializePlayer.serialize(player);
+            Player newPlayer = SerializePlayer.getFromJSON();
         }
 
     //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------

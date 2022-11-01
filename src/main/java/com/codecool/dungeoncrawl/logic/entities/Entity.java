@@ -17,7 +17,6 @@ public abstract class Entity implements Drawable {
     public static final int HIT_BOX_X_OFFSET = 16;
 
     public static final int HIT_BOX_Y_OFFSET = 32;
-
     protected int size;
     protected BufferedImage image;
 

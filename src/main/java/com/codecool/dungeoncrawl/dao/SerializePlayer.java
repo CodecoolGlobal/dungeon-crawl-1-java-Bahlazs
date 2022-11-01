@@ -1,18 +1,17 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.entities.Player;
+import com.codecool.dungeoncrawl.main.Game;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class SerializePlayer {
 //    opens java.awt.image.BufferedImage to com.google.gson; -- module-info.java ??
@@ -27,14 +26,19 @@ public class SerializePlayer {
     }
 
     public static Player getFromJSON() {
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get("player.json"));
+        try (BufferedReader reader = Files.newBufferedReader(
+                Paths.get("./src/main/resources/player-save/player.json"))) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             // convert the JSON string to a Player object
-            Player player = new Gson().fromJson(reader, Player.class);
-
-            System.out.println(player);
-            reader.close();
-            return player;
+            Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+            HashMap<String, Object> playerMap = gson.fromJson(reader, type);
+            System.out.println("getFromJSON test:");
+            System.out.println(playerMap);
+            System.out.println("Position test:");
+            LinkedTreeMap<String, Double> positionMap = (LinkedTreeMap<String, Double>) playerMap.get("position");
+            int x = positionMap.get("x").intValue();
+            int y = positionMap.get("y").intValue();
+            return new Player(x, y, Game.TILE_SIZE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
