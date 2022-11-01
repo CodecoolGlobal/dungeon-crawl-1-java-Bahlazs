@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.MouseHandler;
+import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 
@@ -109,5 +111,15 @@ public class Player extends  Entity{
 
     public int getHp() {
         return this.hp;
+    }
+
+    public void pickUp(Item item, boolean eIsPressed) {
+        if (eIsPressed) {
+            if (item instanceof Armor) {
+                image = armoredImage;
+                item.setPickedUpTrue();
+                hp += 10;
+            }
+        }
     }
 }

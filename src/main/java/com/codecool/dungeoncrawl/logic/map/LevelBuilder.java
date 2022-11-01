@@ -57,9 +57,6 @@ public class LevelBuilder {
                 if (tileIds.get(i).get(j) == 395) {
                     tileGrid[i][j].setSolid();
                 }
-                if (tileIds.get(i).get(j) == 25) {
-                    tileGrid[i][j].setSolid();
-                }
             }
         }
         return tileGrid;

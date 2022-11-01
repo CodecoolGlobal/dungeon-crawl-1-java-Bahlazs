@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    private boolean up, down, right, left, mPressed; // TODO will have pickup
+    private boolean up, down, right, left, mPressed, ePressed; // TODO will have pickup
 
     public boolean isUp() {
         return up;
@@ -23,8 +23,12 @@ public class KeyHandler implements KeyListener{
 
     public boolean isLeft() { return left; }
 
-    public boolean ismPressed() {
+    public boolean mIsPressed() {
         return mPressed;
+    }
+
+    public boolean eIsPressed() {
+        return ePressed;
     }
 
     @Override
@@ -49,6 +53,9 @@ public class KeyHandler implements KeyListener{
         if (e.getKeyCode() == KeyEvent.VK_M) {
             mPressed = false;
         }
+        if (e.getKeyCode() == KeyEvent.VK_E) {
+            ePressed = false;
+        }
     }
 
     @Override
@@ -68,6 +75,8 @@ public class KeyHandler implements KeyListener{
         if (e.getKeyCode() == KeyEvent.VK_M) {
             mPressed = true;
         }
-
+        if (e.getKeyCode() == KeyEvent.VK_E) {
+            ePressed = true;
+        }
     }
 }

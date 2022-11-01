@@ -89,14 +89,24 @@ public class LogicHandler {
         return mouseHandler;
     }
 
+
+
     // --------------------------------------------------------------- COLLISION ---------------------------------------------------------------------------------------
 
     private boolean checkTileCollision(Tile tile, Entity entity) {
         return entity.getHitBox().intersects(tile);
     }
 
-    public boolean checkEntityCollision(Entity entity1, Entity entity2) {
+    private boolean checkEntityCollision(Entity entity1, Entity entity2) {
         return entity1.getHitBox().intersects(entity2.getHitBox());
+    }
+
+    private Item checkItemCollision() {
+        for (Item item: items) {
+            if (player.getHitBox().intersects(item.getPickUpRadius())) {
+                return item;
+            }
+        } return null;
     }
 
     public void checkCollisions(Entity entity) {
@@ -213,22 +223,24 @@ public class LogicHandler {
 
     private void setPlayerDetails() {
         playerAttackDuration = player.getAttackDuration();
-        playerIsAttacking = player.attack();
+        playerIsAttacking = player.attack(mouseHandler);
     }
 
     public void update() {
+        setPlayerDetails();
         checkCollisions(player);
         player.move(keyHandler);
         skeletonActions();
         spiritActions();
+        player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
+        currentLevel.clearPickedUpItems();
         if (player.attack(mouseHandler)) {
             attackSkeleton();
             attackSpirit();
         }
-        if (keyHandler.ismPressed()) {
+        if (keyHandler.mIsPressed()) {
             saveGame();
         }
-        setPlayerDetails();
     }
 
 

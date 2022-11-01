@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 import java.util.List;
 
 public class Level {
@@ -65,5 +66,15 @@ public class Level {
 
     public Tile[][] getTileGrid() {
         return tileGrid;
+    }
+
+    public void clearPickedUpItems() {
+        Iterator<Item> it = items.iterator();
+        while (it.hasNext()) {
+            if (it.next().isPickedUp()) {
+                it.remove();
+                break;
+            }
+        }
     }
 }
