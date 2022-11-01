@@ -14,6 +14,7 @@ public abstract class Enemy extends Entity {
     public boolean attack(boolean entityIsNear, Player player) {
         checkAttackCooldown();
         if (entityIsNear && canAttack) {
+            System.out.println("die!!!!!!!!!");
             player.damagePlayer(10);
             canAttack = false;
             return true;

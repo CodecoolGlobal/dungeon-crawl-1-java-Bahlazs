@@ -9,6 +9,7 @@ import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends  Entity{
@@ -33,6 +34,7 @@ public class Player extends  Entity{
         attackDuration = 0.4;
         moving = true;
         armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
+        inventory = new ArrayList<>();
     }
 
 
