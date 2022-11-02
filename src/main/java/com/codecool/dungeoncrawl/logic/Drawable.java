@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public interface Drawable {
 
-    BufferedImage getImage();
+    String getImageUrl();
 
     Position getPosition();
 

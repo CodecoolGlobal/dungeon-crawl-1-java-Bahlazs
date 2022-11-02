@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.util.Position;
 import java.awt.image.BufferedImage;
 
 public interface DrawableItem {
-    BufferedImage getImage();
+    String getImageUrl();
 
     Position getPosition();
 }

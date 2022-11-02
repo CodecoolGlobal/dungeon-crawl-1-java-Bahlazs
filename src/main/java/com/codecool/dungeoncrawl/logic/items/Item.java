@@ -15,7 +15,7 @@ public abstract class Item implements DrawableItem {
 
     protected String name;
 
-    protected BufferedImage image;
+    protected String imageUrl;
 
     protected final Rectangle  pickUpRadius;
 
@@ -26,15 +26,15 @@ public abstract class Item implements DrawableItem {
     public Item(int x, int y, int width, int height, String name, String imageUrl) {
         position = new Position(x, y);
         this.name = name;
-        image = ImageLoader.loadImage(imageUrl);
+        this.imageUrl = imageUrl;
         pickUpRadius = new Rectangle(x - PICK_UP_RADIUS_OFFSET/2, y - PICK_UP_RADIUS_OFFSET/2,
                                 width + PICK_UP_RADIUS_OFFSET, height + PICK_UP_RADIUS_OFFSET);
         pickedUp = false;
     }
 
     @Override
-    public BufferedImage getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     @Override

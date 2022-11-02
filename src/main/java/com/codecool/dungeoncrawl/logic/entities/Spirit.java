@@ -2,12 +2,12 @@ package com.codecool.dungeoncrawl.logic.entities;
 
 public class Spirit extends Enemy{
 
-    private static final String CHARACTER_URL = "/enemies/spirit.png";
+    public static final String SPIRIT_URL = "/enemies/spirit.png";
     private final int range;
     private boolean playerInRange;
 
     public Spirit(int x, int y, int size, double attackCooldown) {
-        super(CHARACTER_URL, x, y, 2, size, attackCooldown,10);
+        super(SPIRIT_URL, x, y, 2, size, attackCooldown,10);
         this.range = 300;
     }
 

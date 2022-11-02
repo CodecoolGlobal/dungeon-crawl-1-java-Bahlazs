@@ -1,13 +1,13 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
 public class Skeleton extends Enemy {
-    private static final String CHARACTER_URL = "/enemies/skeleton.png";
+    public static final String SKELETON_URL = "/enemies/skeleton.png";
     private float directionCoolDown;
 
 
 
     public Skeleton(int x, int y, int size, double attackCooldown) {
-        super(CHARACTER_URL, x, y, 1, size, attackCooldown,12);
+        super(SKELETON_URL, x, y, 1, size, attackCooldown,12);
         this.directionCoolDown = 0;
 
     }

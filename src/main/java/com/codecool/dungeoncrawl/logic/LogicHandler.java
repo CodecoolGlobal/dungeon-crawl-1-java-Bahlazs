@@ -19,7 +19,7 @@ import java.util.List;
 public class LogicHandler {
 
     // level 1 data
-    private static final String LEVEL_1_BACKGROUND_URL = "/background/level1-background.png";
+    public static final String LEVEL_1_BACKGROUND_URL = "/background/level1-background.png";
 
     private static final String LEVEL_1_BLOCK_DATA_URL = "/Tiled-projects/blocks-level1_Blocks.csv";
 
@@ -43,10 +43,12 @@ public class LogicHandler {
 
     private List<Item> items;
 
-    private double playerAttackDuration;
+
 
     private int playerMaxHp;
     private boolean playerIsAttacking;
+
+    private boolean armorStatus;
 
     public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
         levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL, LEVEL_1_ITEM_DATA_URL);
@@ -75,8 +77,8 @@ public class LogicHandler {
         return new ArrayList<>(items);
     }
 
-    public BufferedImage getCurrentLevelBackGround() {
-        return currentLevel.getBackground();
+    public boolean checkPayerArmorStatus() {
+        return armorStatus;
     }
 
 
@@ -234,9 +236,9 @@ public class LogicHandler {
     //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
 
     private void setPlayerDetails() {
-        playerAttackDuration = player.getAttackDuration();
         playerIsAttacking = player.playerAttack(mouseHandler);
         playerMaxHp = player.getMaxHp();
+        armorStatus = player.hasArmor();
     }
 
     private boolean playerIsAlive() {
@@ -252,7 +254,6 @@ public class LogicHandler {
             player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
             currentLevel.clearPickedUpItems();
             if (player.playerAttack(mouseHandler)) {
-                System.out.println(player.getHp());
                 destroySkeleton();
                 destroySpirit();
             }

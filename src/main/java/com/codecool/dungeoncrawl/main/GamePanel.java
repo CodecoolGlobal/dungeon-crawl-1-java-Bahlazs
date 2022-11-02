@@ -3,6 +3,13 @@ package com.codecool.dungeoncrawl.main;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.DrawableItem;
 import com.codecool.dungeoncrawl.logic.LogicHandler;
+import com.codecool.dungeoncrawl.logic.entities.Player;
+import com.codecool.dungeoncrawl.logic.entities.Skeleton;
+import com.codecool.dungeoncrawl.logic.entities.Spirit;
+import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Potion;
+import com.codecool.dungeoncrawl.util.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,11 +24,25 @@ public class GamePanel extends JPanel {
 
     //actors
 
-    private Drawable player;
+    private final Drawable player;
+
+    private List<Drawable> enemies;
+
+    private List<DrawableItem> items;
 
     //player animation details
-    private  double playerAnimationIndexX;
-    private  double playerAnimationIndexY;
+    private BufferedImage playerImage;
+
+    private BufferedImage playerArmoredImage;
+
+    private final BufferedImage skeletonImage;
+    private final BufferedImage spiritImage;
+    private final BufferedImage potionImage;
+    private final BufferedImage keyImage;
+    private final BufferedImage armorImage;
+    private final BufferedImage levelBackgroundImage;
+    private double playerAnimationIndexX;
+    private double playerAnimationIndexY;
 
 
     public GamePanel(LogicHandler logicH, int width, int height) {
@@ -29,6 +50,16 @@ public class GamePanel extends JPanel {
         this.height = height;
         this.logicH = logicH;
         player = logicH.getPlayer();
+        playerImage = ImageLoader.loadImage(player.getImageUrl());
+        playerArmoredImage = ImageLoader.loadImage(Player.ARMORED_CHARACTER_URL);
+        skeletonImage = ImageLoader.loadImage(Skeleton.SKELETON_URL);
+        spiritImage = ImageLoader.loadImage(Spirit.SPIRIT_URL);
+        potionImage = ImageLoader.loadImage(Potion.POTION_URL);
+        keyImage = ImageLoader.loadImage(Key.KEY_URL);
+        armorImage = ImageLoader.loadImage(Armor.ARMOR_URL);
+        levelBackgroundImage = ImageLoader.loadImage(LogicHandler.LEVEL_1_BACKGROUND_URL);
+        enemies = logicH.getEnemies();
+        items = logicH.getItems();
         setPanelSize();
         setDoubleBuffered(true);
         addKeyListener(logicH.getKeyHandler());
@@ -52,11 +83,19 @@ public class GamePanel extends JPanel {
         setPreferredSize(size);
     }
 
+    public void updateObjectDrawStatus() {
+        enemies = logicH.getEnemies();
+        items = logicH.getItems();
+        if (logicH.checkPayerArmorStatus()) {
+            playerImage = playerArmoredImage;
+        }
+    }
+
     private BufferedImage[][] getAnimationFrames(BufferedImage image) {
-        BufferedImage[][] animationGrid = new BufferedImage[image.getHeight()/Game.TILE_SIZE][image.getWidth()/Game.TILE_SIZE];
+        BufferedImage[][] animationGrid = new BufferedImage[image.getHeight() / Game.TILE_SIZE][image.getWidth() / Game.TILE_SIZE];
         for (int j = 0; j < animationGrid.length; j++) {
             for (int i = 0; i < animationGrid[j].length; i++) {
-                animationGrid[j][i] = image.getSubimage(i* Game.TILE_SIZE, j*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
+                animationGrid[j][i] = image.getSubimage(i * Game.TILE_SIZE, j * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
             }
         }
         return animationGrid;
@@ -79,40 +118,51 @@ public class GamePanel extends JPanel {
     }
 
     private void drawCameraView(Graphics2D g2d) {
-        BufferedImage levelBackground = logicH.getCurrentLevelBackGround();
-        int cameraX = player.getPosition().getX() - (Game.SCREEN_WIDTH/2 - Game.TILE_SIZE/2);
-        int cameraY = player.getPosition().getY() - (Game.SCREEN_HEIGHT/2 - Game.TILE_SIZE/2);
-        g2d.drawImage(levelBackground.getSubimage(cameraX, cameraY,
-                Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0,0, null);
+        int cameraX = player.getPosition().getX() - (Game.SCREEN_WIDTH / 2 - Game.TILE_SIZE / 2);
+        int cameraY = player.getPosition().getY() - (Game.SCREEN_HEIGHT / 2 - Game.TILE_SIZE / 2);
+        g2d.drawImage(levelBackgroundImage.getSubimage(cameraX, cameraY,
+                Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT), 0, 0, null);
     }
 
     private void drawPlayer(Graphics2D g2d) {
-        BufferedImage[][] playerAnimationGrid = getAnimationFrames(player.getImage());
+        BufferedImage[][] playerAnimationGrid = getAnimationFrames(playerImage);
         g2d.drawImage(playerAnimationGrid[(int) playerAnimationIndexY][(int) playerAnimationIndexX],
-                Game.SCREEN_WIDTH /2 -(Game.TILE_SIZE/2),
-                Game.SCREEN_HEIGHT/2 - (Game.TILE_SIZE/2), null);
+                Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2),
+                Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2), null);
     }
 
     private void drawEnemies(Graphics2D g2d) {
-        List<Drawable> enemies = logicH.getEnemies();
-        if(enemies.size() != 0) {
+        if (enemies.size() != 0) {
+            BufferedImage enemyImage;
             for (Drawable enemy : enemies) {
-                    int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
-                    int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
-                    g2d.drawImage(enemy.getImage().getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
-                            enemyXScreenPos,
-                            enemyYScreenPos, null);
+                if (enemy instanceof Skeleton) {
+                    enemyImage = skeletonImage;
+                } else {
+                    enemyImage = spiritImage;
+                }
+                int enemyXScreenPos = enemy.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
+                int enemyYScreenPos = enemy.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
+                g2d.drawImage(enemyImage.getSubimage(0, 0, Game.TILE_SIZE, Game.TILE_SIZE),
+                        enemyXScreenPos,
+                        enemyYScreenPos, null);
             }
         }
     }
 
-    private void drawItems (Graphics2D g2d) {
-        List<DrawableItem> items = logicH.getItems();
-        if(items.size() != 0) {
-            for (DrawableItem item: items) {
+    private void drawItems(Graphics2D g2d) {
+        if (items.size() != 0) {
+            BufferedImage itemImage;
+            for (DrawableItem item : items) {
+                if (item instanceof Potion) {
+                    itemImage = potionImage;
+                } else if (item instanceof Key) {
+                    itemImage = keyImage;
+                } else {
+                    itemImage = armorImage;
+                }
                 int itemXScreenPos = item.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
                 int itemYScreenPos = item.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
-                g2d.drawImage(item.getImage(), itemXScreenPos, itemYScreenPos, null);
+                g2d.drawImage(itemImage, itemXScreenPos, itemYScreenPos, null);
             }
         }
     }
@@ -121,10 +171,7 @@ public class GamePanel extends JPanel {
         g2d.setFont(new Font("Arial", Font.BOLD, 24));
         g2d.setColor(Color.WHITE);
         g2d.drawString("HP: " + logicH.getPlayerMaxHp() + " / " + player.getHp(), 30, 30);
-//        JLabel hpStats = new JLabel("HP : " + logicH.getPlayerMaxHp() + " / " + player.getHp());
-//        hpStats.setBounds( 30,   30, 200, 64);
-//        hpStats.setForeground(Color.WHITE);
-//        this.add(hpStats);
+
     }
 
     public void paintComponent(Graphics g) {

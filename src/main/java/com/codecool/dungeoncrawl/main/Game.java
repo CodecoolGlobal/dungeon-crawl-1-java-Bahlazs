@@ -70,6 +70,7 @@ public class Game implements Runnable{
 
             if (deltaU >= 1) {
                 logicHandler.update();
+                gamePanel.updateObjectDrawStatus();
                 updates++;
                 deltaU--;
             }

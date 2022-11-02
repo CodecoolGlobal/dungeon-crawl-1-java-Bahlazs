@@ -14,7 +14,7 @@ public class Level {
 
     private final String levelDetailsUrl;
 
-    private final BufferedImage background; //
+    private final String backgroundUrl; //
     @Expose
     private final List<Skeleton> skeletons; //
     @Expose
@@ -31,7 +31,7 @@ public class Level {
 
     public Level(String imageUrl, String blockDataUrl, String entityDateUrl, String itemDataUrl) {
         levelBuilder = new LevelBuilder();
-        this.background = ImageLoader.loadImage(imageUrl);
+        this.backgroundUrl = imageUrl;
         levelDetailsUrl = blockDataUrl;
         tileGrid = levelBuilder.createMapBlocks(levelBuilder.getLayerDetails(levelDetailsUrl));
         items = levelBuilder.createItems(levelBuilder.getLayerDetails(itemDataUrl));
@@ -60,8 +60,8 @@ public class Level {
         return items;
     }
 
-    public BufferedImage getBackground() {
-        return background;
+    public String getBackground() {
+        return backgroundUrl;
     }
 
     public Tile[][] getTileGrid() {

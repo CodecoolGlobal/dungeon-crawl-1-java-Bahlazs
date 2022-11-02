@@ -25,7 +25,6 @@ public class Player extends  Entity{
 
     private List<String> inventory;
 
-    private BufferedImage armoredImage;
     private boolean hasKey;
 
 
@@ -44,7 +43,6 @@ public class Player extends  Entity{
         hasArmor = false;
         attackDuration = 0.4;
         moving = true;
-        armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
         inventory = new ArrayList<>();
         hasKey = false;
     }
@@ -57,6 +55,10 @@ public class Player extends  Entity{
 
     public boolean hasKey() {
         return hasKey;
+    }
+
+    public boolean hasArmor() {
+        return hasArmor;
     }
 
     public int getHp() {
@@ -161,7 +163,7 @@ public class Player extends  Entity{
 
     private void pickUpArmor(Item item) {
         hasArmor = true;
-        image = armoredImage;
+        imageUrl = ARMORED_CHARACTER_URL;
         item.setPickedUpTrue();
         raiseMaxHp(Armor.ARMOR_DEF_VALUE);
         raiseHp(Armor.ARMOR_DEF_VALUE);

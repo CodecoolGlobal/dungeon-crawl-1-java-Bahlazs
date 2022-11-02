@@ -18,7 +18,7 @@ public abstract class Entity implements Drawable {
 
     public static final int HIT_BOX_Y_OFFSET = 32;
     protected int size;
-    protected BufferedImage image;
+    protected String imageUrl;
 
     protected int speed;
 
@@ -35,7 +35,7 @@ public abstract class Entity implements Drawable {
         direction = Direction.DOWN;
         this.speed = speed;
         this.size = size;
-        image = ImageLoader.loadImage(url);
+        imageUrl = url;
         hitBox = new Rectangle(position.getX()+HIT_BOX_X_OFFSET, position.getY()+HIT_BOX_Y_OFFSET, HIT_BOX_SIZE, HIT_BOX_SIZE);
 
     }
@@ -58,8 +58,8 @@ public abstract class Entity implements Drawable {
     }
 
 
-    public BufferedImage getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public void stopMovement() {
