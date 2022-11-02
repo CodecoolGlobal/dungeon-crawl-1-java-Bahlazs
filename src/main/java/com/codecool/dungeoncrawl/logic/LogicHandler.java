@@ -234,20 +234,24 @@ public class LogicHandler {
         playerIsAttacking = player.playerAttack(mouseHandler);
     }
 
+    private boolean playerIsAlive() {
+        return player.getHp() > 0;
+    }
+
     public void update() {
-        setPlayerDetails();
-        checkCollisions(player);
-        player.move(keyHandler);
-        skeletonActions();
-        spiritActions();
-        player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
-        currentLevel.clearPickedUpItems();
-        if (player.playerAttack(mouseHandler)) {
-            destroySkeleton();
-            destroySpirit();
-        }
-        if (keyHandler.mIsPressed()) {
-            saveGame();
-        }
+            setPlayerDetails();
+            checkCollisions(player);
+            player.move(keyHandler);
+            skeletonActions();
+            spiritActions();
+            player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
+            currentLevel.clearPickedUpItems();
+            if (player.playerAttack(mouseHandler)) {
+                destroySkeleton();
+                destroySpirit();
+            }
+            if (keyHandler.mIsPressed()) {
+                saveGame();
+            }
     }
 }

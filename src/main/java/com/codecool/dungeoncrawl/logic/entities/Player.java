@@ -13,7 +13,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Entity {
+public class Player extends  Entity{
+
     public static final String CHARACTER_URL = "/player/Samurai.png";
     public static final String ARMORED_CHARACTER_URL = "/player/Samurai-armored.png";
 
@@ -23,12 +24,14 @@ public class Player extends Entity {
     private List<String> inventory;
 
     private BufferedImage armoredImage;
+    private boolean hasKey;
 
 
     private final double attackDuration;
     private boolean moving;
     @Expose
     private int hp;
+    private int maxHp = 100;
     @Expose
     private boolean hasArmor;
 
@@ -41,6 +44,7 @@ public class Player extends Entity {
         moving = true;
         armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
         inventory = new ArrayList<>();
+        hasKey = false;
     }
 
 
@@ -49,6 +53,9 @@ public class Player extends Entity {
         return attackDuration;
     }
 
+    public boolean hasKey() {
+        return hasKey;
+    }
 
     public boolean isMoving() {
         return moving;
@@ -101,8 +108,16 @@ public class Player extends Entity {
         }
     }
 
+    public void raiseMaxHp(int amount) {
+        this.maxHp += amount;
+    }
+
     public void raiseHp(int amount) {
-        this.hp += amount;
+        if ((hp += amount) > maxHp) {
+            this.hp = maxHp;
+        } else {
+            hp += amount;
+        }
     }
     public void damagePlayer(int amount) {
         this.hp -= amount;
@@ -133,7 +148,7 @@ public class Player extends Entity {
     }
 
     private void pickUpKey(Item item) { //TODO!
-
+        hasKey = true;
         inventory.add(item.getName());
     }
 
@@ -141,7 +156,14 @@ public class Player extends Entity {
         hasArmor = true;
         image = armoredImage;
         item.setPickedUpTrue();
+        raiseMaxHp(10);
         raiseHp(10);
         inventory.add(item.getName());
+    }
+
+    private void pickUpPotion(Item item) {
+        item.setPickedUpTrue();
+        inventory.add(item.getName());
+        raiseHp(20);
     }
 }
