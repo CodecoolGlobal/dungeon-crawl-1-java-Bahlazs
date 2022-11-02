@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Potion;
+import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.google.gson.annotations.Expose;
@@ -144,6 +146,9 @@ public class Player extends  Entity{
             if (item instanceof Key) {
                 pickUpKey(item);
             }
+            if (item instanceof Potion) {
+                pickUpPotion(item);
+            }
         }
     }
 
@@ -165,5 +170,9 @@ public class Player extends  Entity{
         item.setPickedUpTrue();
         inventory.add(item.getName());
         raiseHp(20);
+    }
+
+    private void openDoor(Tile tile) {
+
     }
 }

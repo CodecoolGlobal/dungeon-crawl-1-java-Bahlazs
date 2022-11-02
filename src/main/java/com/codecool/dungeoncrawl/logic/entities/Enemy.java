@@ -4,18 +4,20 @@ public abstract class Enemy extends Entity {
     protected final double attackCooldown;
     protected boolean canAttack;
     protected double cooldownChecker = 0;
+    protected int damage;
 
-    public Enemy(String url, int x, int y, int speed, int size, double attackCooldown) {
+    public Enemy(String url, int x, int y, int speed, int size, double attackCooldown, int damage) {
         super(url, x, y, speed, size);
         this.attackCooldown = attackCooldown;
         canAttack = true;
+        this.damage = damage;
     }
 
     public boolean attack(boolean entityIsNear, Player player) {
         checkAttackCooldown();
         if (entityIsNear && canAttack) {
             System.out.println("die!!!!!!!!!");
-            player.damagePlayer(10);
+            player.damagePlayer(damage);
             canAttack = false;
             return true;
         }
@@ -31,4 +33,7 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    public int getDamage() {
+        return damage;
+    }
 }

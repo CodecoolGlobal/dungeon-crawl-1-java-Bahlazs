@@ -7,7 +7,7 @@ public class Spirit extends Enemy{
     private boolean playerInRange;
 
     public Spirit(int x, int y, int size, double attackCooldown) {
-        super(CHARACTER_URL, x, y, 2, size, attackCooldown);
+        super(CHARACTER_URL, x, y, 2, size, attackCooldown,10);
         this.range = 300;
     }
 

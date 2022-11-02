@@ -7,7 +7,7 @@ public class Skeleton extends Enemy {
 
 
     public Skeleton(int x, int y, int size, double attackCooldown) {
-        super(CHARACTER_URL, x, y, 1, size, attackCooldown);
+        super(CHARACTER_URL, x, y, 1, size, attackCooldown,12);
         this.directionCoolDown = 0;
 
     }
