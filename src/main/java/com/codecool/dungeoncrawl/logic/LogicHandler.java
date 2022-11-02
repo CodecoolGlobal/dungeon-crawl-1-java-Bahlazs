@@ -45,7 +45,7 @@ public class LogicHandler {
 
     private double playerAttackDuration;
 
-
+    private int playerMaxHp;
     private boolean playerIsAttacking;
 
     public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
@@ -71,7 +71,7 @@ public class LogicHandler {
         return enemies;
     }
 
-    public List<Drawable> getItems() {
+    public List<DrawableItem> getItems() {
         return new ArrayList<>(items);
     }
 
@@ -93,7 +93,9 @@ public class LogicHandler {
         return mouseHandler;
     }
 
-
+    public int getPlayerMaxHp() {
+        return playerMaxHp;
+    }
 
     // --------------------------------------------------------------- COLLISION ---------------------------------------------------------------------------------------
 
@@ -234,6 +236,7 @@ public class LogicHandler {
     private void setPlayerDetails() {
         playerAttackDuration = player.getAttackDuration();
         playerIsAttacking = player.playerAttack(mouseHandler);
+        playerMaxHp = player.getMaxHp();
     }
 
     private boolean playerIsAlive() {

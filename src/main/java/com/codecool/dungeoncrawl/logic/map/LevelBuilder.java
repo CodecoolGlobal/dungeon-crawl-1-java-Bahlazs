@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Potion;
 import com.codecool.dungeoncrawl.main.Game;
 
@@ -58,6 +59,11 @@ public class LevelBuilder {
                 if (tileIds.get(i).get(j) == 395) {
                     tileGrid[i][j].setSolid();
                 }
+                if (tileIds.get(i).get(j) == 242) {
+                    tileGrid[i][j] = new Door(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, tileIds.get(j).get(i));
+                    tileGrid[i][j].setSolid();
+                }
+
             }
         }
         return tileGrid;
@@ -110,6 +116,10 @@ public class LevelBuilder {
                 if (tileIds.get(i).get(j) == 369) {
 
                     items.add(new Potion(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/lifepot.png"));
+                }
+                if (tileIds.get(i).get(j) == 0) {
+
+                    items.add(new Key(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/key.png"));
                 }
 
             }

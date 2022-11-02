@@ -63,5 +63,10 @@ public class Spirit extends Enemy{
     private boolean checkVertical (Player player) {
         return (player.getPosition().getY() == hitBox.y && (Math.abs(player.getPosition().getX() - hitBox.x) <= range));
     }
+
+    @Override
+    public int getHp() {
+        return 0;
+    }
 }
 

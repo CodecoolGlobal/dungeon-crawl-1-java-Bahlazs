@@ -59,9 +59,14 @@ public class Player extends  Entity{
         return hasKey;
     }
 
-    public boolean isMoving() {
-        return moving;
+    public int getHp() {
+        return this.hp;
     }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
 
     @Override
     public void move() {
@@ -121,6 +126,7 @@ public class Player extends  Entity{
             this.hp += amount;
         }
     }
+
     public void damagePlayer(int amount) {
         this.hp -= amount;
     }
@@ -132,10 +138,6 @@ public class Player extends  Entity{
             moving = true;
 
         }
-    }
-
-    public int getHp() {
-        return this.hp;
     }
 
     public void pickUp(Item item, boolean eIsPressed) {

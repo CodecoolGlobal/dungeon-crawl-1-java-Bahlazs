@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.main;
 
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.DrawableItem;
 import com.codecool.dungeoncrawl.logic.LogicHandler;
 
 import javax.swing.*;
@@ -106,14 +107,24 @@ public class GamePanel extends JPanel {
     }
 
     private void drawItems (Graphics2D g2d) {
-        List<Drawable> items = logicH.getItems();
+        List<DrawableItem> items = logicH.getItems();
         if(items.size() != 0) {
-            for (Drawable item: items) {
+            for (DrawableItem item: items) {
                 int itemXScreenPos = item.getPosition().getX() - player.getPosition().getX() + Game.SCREEN_WIDTH / 2 - (Game.TILE_SIZE / 2);
                 int itemYScreenPos = item.getPosition().getY() - player.getPosition().getY() + Game.SCREEN_HEIGHT / 2 - (Game.TILE_SIZE / 2);
                 g2d.drawImage(item.getImage(), itemXScreenPos, itemYScreenPos, null);
             }
         }
+    }
+
+    private void drawPlayerStats(Graphics2D g2d) {
+        g2d.setFont(new Font("Arial", Font.BOLD, 24));
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("HP: " + logicH.getPlayerMaxHp() + " / " + player.getHp(), 30, 30);
+//        JLabel hpStats = new JLabel("HP : " + logicH.getPlayerMaxHp() + " / " + player.getHp());
+//        hpStats.setBounds( 30,   30, 200, 64);
+//        hpStats.setForeground(Color.WHITE);
+//        this.add(hpStats);
     }
 
     public void paintComponent(Graphics g) {
@@ -124,7 +135,8 @@ public class GamePanel extends JPanel {
         drawEnemies(g2d);
         drawItems(g2d);
         drawPlayer(g2d);
-
+        drawPlayerStats(g2d);
+        g2d.dispose();
 
     }
 

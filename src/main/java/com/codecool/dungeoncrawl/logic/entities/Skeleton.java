@@ -48,4 +48,9 @@ public class Skeleton extends Enemy {
             direction = direction.getRandomDirection();
         }
     }
+
+    @Override
+    public int getHp() {
+        return 0;
+    }
 }

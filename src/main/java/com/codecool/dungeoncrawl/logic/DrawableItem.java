@@ -1,18 +1,11 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.Position;
 
 import java.awt.image.BufferedImage;
 
-public interface Drawable {
-
+public interface DrawableItem {
     BufferedImage getImage();
 
     Position getPosition();
-
-    Direction getDirection();
-
-    int getHp();
-
 }
