@@ -115,10 +115,10 @@ public class Player extends  Entity{
     }
 
     public void raiseHp(int amount) {
-        if ((hp += amount) > maxHp) {
+        if ((hp + amount) > maxHp) {
             this.hp = maxHp;
         } else {
-            hp += amount;
+            this.hp += amount;
         }
     }
     public void damagePlayer(int amount) {
@@ -161,15 +161,15 @@ public class Player extends  Entity{
         hasArmor = true;
         image = armoredImage;
         item.setPickedUpTrue();
-        raiseMaxHp(10);
-        raiseHp(10);
+        raiseMaxHp(Armor.ARMOR_DEF_VALUE);
+        raiseHp(Armor.ARMOR_DEF_VALUE);
         inventory.add(item.getName());
     }
 
     private void pickUpPotion(Item item) {
         item.setPickedUpTrue();
         inventory.add(item.getName());
-        raiseHp(20);
+        raiseHp(Potion.POTION_HEAL_VALUE);
     }
 
     private void openDoor(Tile tile) {

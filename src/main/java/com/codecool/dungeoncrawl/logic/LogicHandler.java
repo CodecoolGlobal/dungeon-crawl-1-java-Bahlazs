@@ -249,6 +249,7 @@ public class LogicHandler {
             player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
             currentLevel.clearPickedUpItems();
             if (player.playerAttack(mouseHandler)) {
+                System.out.println(player.getHp());
                 destroySkeleton();
                 destroySpirit();
             }
