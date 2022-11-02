@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Potion;
 import com.codecool.dungeoncrawl.main.Game;
 
 import java.io.BufferedReader;
@@ -106,6 +107,11 @@ public class LevelBuilder {
 
                     items.add(new Armor(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/armor.png"));
                 }
+                if (tileIds.get(i).get(j) == 369) {
+
+                    items.add(new Potion(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/lifepot.png"));
+                }
+
             }
         }
         return items;

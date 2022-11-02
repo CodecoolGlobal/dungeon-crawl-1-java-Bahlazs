@@ -29,12 +29,12 @@ public class Level {
     private final LevelBuilder levelBuilder;
 
 
-    public Level(String imageUrl, String blockDataUrl, String entityDateUrl) {
+    public Level(String imageUrl, String blockDataUrl, String entityDateUrl, String itemDataUrl) {
         levelBuilder = new LevelBuilder();
         this.background = ImageLoader.loadImage(imageUrl);
         levelDetailsUrl = blockDataUrl;
         tileGrid = levelBuilder.createMapBlocks(levelBuilder.getLayerDetails(levelDetailsUrl));
-        items = levelBuilder.createItems(levelBuilder.getLayerDetails(levelDetailsUrl));
+        items = levelBuilder.createItems(levelBuilder.getLayerDetails(itemDataUrl));
         skeletons = levelBuilder.spawnSkeleton(levelBuilder.getLayerDetails(entityDateUrl));
         spirits = levelBuilder.spawnSpirit(levelBuilder.getLayerDetails(entityDateUrl));
         player = levelBuilder.spawnPlayer(levelBuilder.getLayerDetails(entityDateUrl));

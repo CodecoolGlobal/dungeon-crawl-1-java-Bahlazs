@@ -25,6 +25,8 @@ public class LogicHandler {
 
     private static final String LEVEL_1_ENTITY_DATA_URL = "/Tiled-projects/blocks-level1_Entities.csv";
 
+    private static final String LEVEL_1_ITEM_DATA_URL = "/Tiled-projects/blocks-level1_items.csv";
+
     private final KeyHandler keyHandler;
     private final MouseHandler mouseHandler;
 
@@ -47,7 +49,7 @@ public class LogicHandler {
     private boolean playerIsAttacking;
 
     public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
-        levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL);
+        levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL, LEVEL_1_ITEM_DATA_URL);
         currentLevel = levelOne;
         player = levelOne.getPlayer();
         skeletons = currentLevel.getSkeletons();
