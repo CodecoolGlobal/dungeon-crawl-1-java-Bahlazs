@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.util.ImageLoader;
+import com.google.gson.annotations.Expose;
 
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
@@ -13,16 +14,15 @@ public class Level {
 
     private final String levelDetailsUrl;
 
-
-    private final BufferedImage background;
-
-    private final List<Skeleton> skeletons;
-
-    private final List<Spirit> spirits;
-
-    private final List<Item> items;
-
-    private final Player player;
+    private final BufferedImage background; //
+    @Expose
+    private final List<Skeleton> skeletons; //
+    @Expose
+    private final List<Spirit> spirits; //
+    @Expose
+    private final List<Item> items; //
+    @Expose
+    private final Player player; //
 
     private final Tile[][] tileGrid;
 

@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.entities.Player;
+import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.main.Game;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,6 +25,15 @@ public class SerializePlayer {
             throw new RuntimeException(e);
         }
     }
+    public static void serialize(Level level) {
+            try (FileWriter writer = new FileWriter("./src/main/resources/level-save/level.json")) {
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+                gson.toJson(level, writer);
+                System.out.println("Saved to level.json");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     public static Player getFromJSON() {
         try (BufferedReader reader = Files.newBufferedReader(

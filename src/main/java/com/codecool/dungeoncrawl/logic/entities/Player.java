@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity {
-
     public static final String CHARACTER_URL = "/player/Samurai.png";
     public static final String ARMORED_CHARACTER_URL = "/player/Samurai-armored.png";
 
     public static final int PLAYER_BASE_SPEED = 3;
+    private final int baseHP = 100;
 
     private List<String> inventory;
 
@@ -28,11 +28,15 @@ public class Player extends Entity {
     private final double attackDuration;
     private boolean moving;
     @Expose
-    private int hp = 100;
+    private int hp;
+    @Expose
+    private boolean hasArmor;
 
 
     public Player(int x, int y, int size) {
         super(CHARACTER_URL, x, y, PLAYER_BASE_SPEED, size);
+        hp = baseHP;
+        hasArmor = false;
         attackDuration = 0.4;
         moving = true;
         armoredImage = ImageLoader.loadImage(ARMORED_CHARACTER_URL);
@@ -134,6 +138,7 @@ public class Player extends Entity {
     }
 
     private void pickUpArmor(Item item) {
+        hasArmor = true;
         image = armoredImage;
         item.setPickedUpTrue();
         raiseHp(10);
