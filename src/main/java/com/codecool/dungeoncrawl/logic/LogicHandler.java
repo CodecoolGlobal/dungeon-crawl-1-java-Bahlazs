@@ -35,7 +35,7 @@ public class LogicHandler {
 
     private Level currentLevel;
 
-    private final Player player;
+    private Player player;
 
     private List<Skeleton> skeletons;
 
@@ -54,7 +54,7 @@ public class LogicHandler {
     public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
         levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL, LEVEL_1_ITEM_DATA_URL);
         currentLevel = levelOne;
-        player = levelOne.getPlayer();
+        player = currentLevel.getPlayer();
         skeletons = currentLevel.getSkeletons();
         spirits = currentLevel.getSpirits();
         items = currentLevel.getItems();
@@ -63,8 +63,20 @@ public class LogicHandler {
 
     }
 
-    public Level getLevelOne() {
-        return levelOne;
+    public Level getLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
+        updateLevel();
+    }
+
+    private void updateLevel() {
+        player = currentLevel.getPlayer();
+        skeletons = currentLevel.getSkeletons();
+        spirits = currentLevel.getSpirits();
+        items = currentLevel.getItems();
     }
 
     public Drawable getPlayer() {

@@ -24,7 +24,7 @@ public class GamePanel extends JPanel {
 
     //actors
 
-    private final Drawable player;
+    private Drawable player;
 
     private List<Drawable> enemies;
 
@@ -35,12 +35,12 @@ public class GamePanel extends JPanel {
 
     private BufferedImage playerArmoredImage;
 
-    private final BufferedImage skeletonImage;
-    private final BufferedImage spiritImage;
-    private final BufferedImage potionImage;
-    private final BufferedImage keyImage;
-    private final BufferedImage armorImage;
-    private final BufferedImage levelBackgroundImage;
+    private  BufferedImage skeletonImage;
+    private  BufferedImage spiritImage;
+    private  BufferedImage potionImage;
+    private  BufferedImage keyImage;
+    private  BufferedImage armorImage;
+    private  BufferedImage levelBackgroundImage;
     private double playerAnimationIndexX;
     private double playerAnimationIndexY;
 
@@ -50,14 +50,7 @@ public class GamePanel extends JPanel {
         this.height = height;
         this.logicH = logicH;
         player = logicH.getPlayer();
-        playerImage = ImageLoader.loadImage(player.getImageUrl());
-        playerArmoredImage = ImageLoader.loadImage(Player.ARMORED_CHARACTER_URL);
-        skeletonImage = ImageLoader.loadImage(Skeleton.SKELETON_URL);
-        spiritImage = ImageLoader.loadImage(Spirit.SPIRIT_URL);
-        potionImage = ImageLoader.loadImage(Potion.POTION_URL);
-        keyImage = ImageLoader.loadImage(Key.KEY_URL);
-        armorImage = ImageLoader.loadImage(Armor.ARMOR_URL);
-        levelBackgroundImage = ImageLoader.loadImage(LogicHandler.LEVEL_1_BACKGROUND_URL);
+        loadImages();
         enemies = logicH.getEnemies();
         items = logicH.getItems();
         setPanelSize();
@@ -66,6 +59,19 @@ public class GamePanel extends JPanel {
         addMouseListener(logicH.getMouseHandler());
         addMouseMotionListener(logicH.getMouseHandler());
 
+    }
+
+    public void setPlayerAfterLoad(Drawable player) {
+        this.player = player;
+    }
+
+
+    public void setEnemiesAfterLoad(List<Drawable> enemies) {
+        this.enemies = enemies;
+    }
+
+    public void setItemsAfreLoad(List<DrawableItem> items) {
+        this.items = items;
     }
 
     @Override
@@ -81,6 +87,17 @@ public class GamePanel extends JPanel {
     private void setPanelSize() {
         Dimension size = new Dimension(width, height);
         setPreferredSize(size);
+    }
+
+    private void loadImages() {
+        playerImage = ImageLoader.loadImage(player.getImageUrl());
+        playerArmoredImage = ImageLoader.loadImage(Player.ARMORED_CHARACTER_URL);
+        skeletonImage = ImageLoader.loadImage(Skeleton.SKELETON_URL);
+        spiritImage = ImageLoader.loadImage(Spirit.SPIRIT_URL);
+        potionImage = ImageLoader.loadImage(Potion.POTION_URL);
+        keyImage = ImageLoader.loadImage(Key.KEY_URL);
+        armorImage = ImageLoader.loadImage(Armor.ARMOR_URL);
+        levelBackgroundImage = ImageLoader.loadImage(LogicHandler.LEVEL_1_BACKGROUND_URL);
     }
 
     public void updateObjectDrawStatus() {

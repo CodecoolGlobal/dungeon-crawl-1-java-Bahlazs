@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    private boolean up, down, right, left, mPressed, ePressed; // TODO will have pickup
+    private boolean up, down, right, left, mPressed, ePressed, lPressed, escPressed, enterPressed; // TODO will have pickup
 
     public boolean isUp() {
         return up;
@@ -25,6 +25,18 @@ public class KeyHandler implements KeyListener{
 
     public boolean mIsPressed() {
         return mPressed;
+    }
+
+    public boolean lIsPressed() {
+        return lPressed;
+    }
+
+    public boolean isEscPressed() {
+        return escPressed;
+    }
+
+    public boolean isEnterPressed() {
+        return enterPressed;
     }
 
     public boolean eIsPressed() {
@@ -53,8 +65,17 @@ public class KeyHandler implements KeyListener{
         if (e.getKeyCode() == KeyEvent.VK_M) {
             mPressed = false;
         }
+        if (e.getKeyCode() == KeyEvent.VK_L) {
+            lPressed = false;
+        }
         if (e.getKeyCode() == KeyEvent.VK_E) {
             ePressed = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            escPressed = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            enterPressed = false;
         }
     }
 
@@ -75,8 +96,17 @@ public class KeyHandler implements KeyListener{
         if (e.getKeyCode() == KeyEvent.VK_M) {
             mPressed = true;
         }
+        if (e.getKeyCode() == KeyEvent.VK_L) {
+            lPressed = true;
+        }
         if (e.getKeyCode() == KeyEvent.VK_E) {
             ePressed = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            escPressed = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            enterPressed = true;
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.main;
 
-import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.dao.Serializer;
 import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.LogicHandler;
@@ -8,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.logic.map.Level;
 import com.google.gson.Gson;
 
-public class Game implements Runnable{
+public class Game implements Runnable {
 
     private static final int ORIGINAL_TILE_SIZE = 16;
     private static final int SCALE = 4;
@@ -23,6 +22,8 @@ public class Game implements Runnable{
 
     private Thread gameThread;
 
+    private boolean gameIsActive;
+
     private final GamePanel gamePanel;
 
     private final LogicHandler logicHandler;
@@ -32,6 +33,7 @@ public class Game implements Runnable{
     private final KeyHandler keyHandler;
 
     private final Gson gson;
+
     public Game() {
         gson = Serializer.createGson();
         keyHandler = new KeyHandler();
@@ -43,18 +45,52 @@ public class Game implements Runnable{
         startGameThread();
     }
 
+    public boolean isGameIsActive() {
+        return gameIsActive;
+    }
+
     private void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+        gameIsActive = true;
     }
 
+    private void pauseGame() {
+        gameIsActive = false;
+    }
+
+    private void resumeGame() {
+        gameIsActive = true;
+    }
+
+
     public void saveGame() {
-        Level levelOne = logicHandler.getLevelOne();
-        Serializer.serialize(levelOne, gson);
+        Level currentLevel = logicHandler.getLevel();
+        Serializer.serialize(currentLevel, gson);
     }
 
     public void loadGame() {
         Level loadedLevel = Serializer.getLevelFromJSON(gson);
+        logicHandler.setCurrentLevel(loadedLevel);
+        gamePanel.setPlayerAfterLoad(logicHandler.getPlayer());
+        gamePanel.setItemsAfreLoad(logicHandler.getItems());
+        gamePanel.setEnemiesAfterLoad(logicHandler.getEnemies());
+    }
+
+    private void update() {
+
+    }
+
+    private void hotKeyHandler() {
+        if (!gameIsActive && keyHandler.isEnterPressed()) {
+            resumeGame();
+        }
+        if (keyHandler.mIsPressed()){
+            saveGame();
+        }
+        if (keyHandler.lIsPressed()) {
+            loadGame();
+        }
     }
 
     // Game loop
@@ -70,32 +106,43 @@ public class Game implements Runnable{
         double deltaU = 0;
         double deltaF = 0;
 
+
         while (gameThread != null) {
+
             long currentTime = System.nanoTime();
 
             deltaU += (currentTime - lastTime) / timePerUpdate;
             deltaF += (currentTime - lastTime) / timePerFrame;
             lastTime = currentTime;
 
+
+            if (deltaU >= 1) {
+                if (gameIsActive) {
+                    logicHandler.update();
+                    gamePanel.updateObjectDrawStatus();
+                }
+                if (keyHandler.isEscPressed()) {
+                    pauseGame();
+                }
+                updates++;
+                deltaU--;
+            }
+            hotKeyHandler();
+
             if (deltaF >= 1) {
-                gamePanel.repaint();
+                if (gameIsActive) {
+                    gamePanel.repaint();
+                }
                 frames++;
                 deltaF--;
             }
 
-            if (deltaU >= 1) {
-                logicHandler.update();
-                gamePanel.updateObjectDrawStatus();
-                updates++;
-                deltaU--;
+            if (System.currentTimeMillis() - lastChecked >= 1000) {
+                lastChecked = System.currentTimeMillis();
+//                    System.out.println("FPS:" + frames + " | UPS:" + updates);
+//                    frames = 0;
+//                    updates = 0;
             }
-////
-////            if (System.currentTimeMillis()-lastChecked >= 1000) {
-////                lastChecked = System.currentTimeMillis();
-////                System.out.println("FPS:" + frames + " | UPS:" + updates);
-////                frames = 0;
-////                updates = 0;
-//            }
         }
     }
 }
