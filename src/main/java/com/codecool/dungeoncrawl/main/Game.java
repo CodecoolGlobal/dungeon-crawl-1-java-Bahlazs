@@ -39,13 +39,13 @@ public class Game implements Runnable {
         keyHandler = new KeyHandler();
         mouseHandler = new MouseHandler();
         logicHandler = new LogicHandler(keyHandler, mouseHandler);
-        gamePanel = new GamePanel(logicHandler, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gamePanel = new GamePanel(this, logicHandler, SCREEN_WIDTH, SCREEN_HEIGHT);
         new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameThread();
     }
 
-    public boolean isGameIsActive() {
+    public boolean isGameActive() {
         return gameIsActive;
     }
 
@@ -55,15 +55,8 @@ public class Game implements Runnable {
         gameIsActive = true;
     }
 
-    private void pauseGame() {
-        gameIsActive = false;
-    }
 
-    private void resumeGame() {
-        gameIsActive = true;
-    }
-
-
+//------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
     public void saveGame() {
         Level currentLevel = logicHandler.getLevel();
         Serializer.serialize(currentLevel, gson);
@@ -73,12 +66,19 @@ public class Game implements Runnable {
         Level loadedLevel = Serializer.getLevelFromJSON(gson);
         logicHandler.setCurrentLevel(loadedLevel);
         gamePanel.setPlayerAfterLoad(logicHandler.getPlayer());
-        gamePanel.setItemsAfreLoad(logicHandler.getItems());
+        gamePanel.setItemsAfterLoad(logicHandler.getItems());
         gamePanel.setEnemiesAfterLoad(logicHandler.getEnemies());
     }
 
-    private void update() {
 
+    //------------------------------------------------------------- STOP AND RESUME GAME ----------------------------------------------------------------------------
+
+    private void pauseGame() {
+        gameIsActive = false;
+    }
+
+    private void resumeGame() {
+        gameIsActive = true;
     }
 
     private void hotKeyHandler() {

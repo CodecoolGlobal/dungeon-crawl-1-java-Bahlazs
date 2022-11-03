@@ -20,6 +20,9 @@ public class GamePanel extends JPanel {
 
     private final int width;
     private final int height;
+
+    private Game game;
+
     LogicHandler logicH;
 
     //actors
@@ -45,7 +48,8 @@ public class GamePanel extends JPanel {
     private double playerAnimationIndexY;
 
 
-    public GamePanel(LogicHandler logicH, int width, int height) {
+    public GamePanel(Game game, LogicHandler logicH, int width, int height) {
+        this.game = game;
         this.width = width;
         this.height = height;
         this.logicH = logicH;
@@ -70,7 +74,7 @@ public class GamePanel extends JPanel {
         this.enemies = enemies;
     }
 
-    public void setItemsAfreLoad(List<DrawableItem> items) {
+    public void setItemsAfterLoad(List<DrawableItem> items) {
         this.items = items;
     }
 
@@ -189,6 +193,22 @@ public class GamePanel extends JPanel {
         g2d.setColor(Color.WHITE);
         g2d.drawString("HP: " + logicH.getPlayerMaxHp() + " / " + player.getHp(), 30, 30);
 
+    }
+
+    private void drawMessages(Graphics2D g2d) {
+        if (!game.isGameActive()) {
+            drawPaused(g2d);
+        }
+        if (logicH.playerDied()) {
+            drawGameOver(g2d);
+        }
+    }
+
+    private void drawGameOver(Graphics2D g2d) {
+    }
+
+    private void drawPaused(Graphics2D g2d) {
+        
     }
 
     public void paintComponent(Graphics g) {

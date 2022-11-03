@@ -3,7 +3,7 @@
   "backgroundUrl": "/background/level1-background.png",
   "skeletons": [
     {
-      "directionCoolDown": 0.17000002,
+      "directionCoolDown": 0.060000002,
       "attackCooldown": 1.2,
       "canAttack": true,
       "cooldownChecker": 0.0,
@@ -11,20 +11,20 @@
       "size": 64,
       "imageUrl": "/enemies/skeleton.png",
       "speed": 1,
-      "direction": "LEFT",
+      "direction": "DOWN",
       "position": {
-        "x": 2068,
-        "y": 710
+        "x": 752,
+        "y": 717
       },
       "hitBox": {
-        "x": 2084,
-        "y": 742,
+        "x": 768,
+        "y": 749,
         "width": 32,
         "height": 32
       }
     },
     {
-      "directionCoolDown": 0.17000002,
+      "directionCoolDown": 0.060000002,
       "attackCooldown": 1.2,
       "canAttack": true,
       "cooldownChecker": 0.0,
@@ -34,18 +34,18 @@
       "speed": 1,
       "direction": "RIGHT",
       "position": {
-        "x": 977,
-        "y": 1548
+        "x": 804,
+        "y": 966
       },
       "hitBox": {
-        "x": 993,
-        "y": 1580,
+        "x": 820,
+        "y": 998,
         "width": 32,
         "height": 32
       }
     },
     {
-      "directionCoolDown": 0.17000002,
+      "directionCoolDown": 0.060000002,
       "attackCooldown": 1.2,
       "canAttack": true,
       "cooldownChecker": 0.0,
@@ -53,42 +53,20 @@
       "size": 64,
       "imageUrl": "/enemies/skeleton.png",
       "speed": 1,
-      "direction": "UP",
+      "direction": "LEFT",
       "position": {
-        "x": 1335,
-        "y": 1736
+        "x": 2199,
+        "y": 1344
       },
       "hitBox": {
-        "x": 1351,
-        "y": 1768,
+        "x": 2215,
+        "y": 1376,
         "width": 32,
         "height": 32
       }
     }
   ],
   "spirits": [
-    {
-      "range": 300,
-      "playerInRange": false,
-      "attackCooldown": 0.7,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 10,
-      "size": 64,
-      "imageUrl": "/enemies/spirit.png",
-      "speed": 2,
-      "direction": "DOWN",
-      "position": {
-        "x": 1838,
-        "y": 1426
-      },
-      "hitBox": {
-        "x": 1854,
-        "y": 1458,
-        "width": 32,
-        "height": 32
-      }
-    },
     {
       "range": 300,
       "playerInRange": false,
@@ -186,20 +164,21 @@
     "hasKey": false,
     "attackDuration": 0.4,
     "moving": true,
-    "hp": 88,
+    "hp": -98,
     "maxHp": 130,
     "hasArmor": true,
+    "isAlive": false,
     "size": 64,
     "imageUrl": "/player/Samurai-armored.png",
     "speed": 3,
-    "direction": "DOWN",
+    "direction": "LEFT",
     "position": {
-      "x": 2407,
-      "y": 683
+      "x": 2374,
+      "y": 1277
     },
     "hitBox": {
-      "x": 2423,
-      "y": 715,
+      "x": 2390,
+      "y": 1309,
       "width": 32,
       "height": 32
     }

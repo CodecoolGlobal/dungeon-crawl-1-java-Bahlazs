@@ -27,15 +27,14 @@ public class Player extends  Entity{
 
     private boolean hasKey;
 
+    private boolean hasWon;
 
     private final double attackDuration;
     private boolean moving;
-    @Expose
+
     private int hp;
     private int maxHp = 100;
-    @Expose
     private boolean hasArmor;
-
 
     public Player(int x, int y, int size) {
         super(CHARACTER_URL, x, y, PLAYER_BASE_SPEED, size);
@@ -45,15 +44,13 @@ public class Player extends  Entity{
         moving = true;
         inventory = new ArrayList<>();
         hasKey = false;
+        hasWon = false;
     }
-
 
 
     public double getAttackDuration() {
         return attackDuration;
     }
-
-    public boolean isAlive;
 
     public boolean hasKey() {
         return hasKey;
@@ -61,6 +58,10 @@ public class Player extends  Entity{
 
     public boolean hasArmor() {
         return hasArmor;
+    }
+
+    public boolean isHasWon() {
+        return hasWon;
     }
 
     public int getHp() {
@@ -158,7 +159,7 @@ public class Player extends  Entity{
         }
     }
 
-    private void pickUpKey(Item item) { //TODO!
+    private void pickUpKey(Item item) {
         hasKey = true;
         item.setPickedUpTrue();
         inventory.add(item.getName());
@@ -181,7 +182,7 @@ public class Player extends  Entity{
 
     public void openDoor(Tile tile, boolean eIsPressed) {
         if (hasKey && eIsPressed && tile != null) {
-            System.out.println("YOU WIN!!!!!");
+            hasWon = true;
             System.exit(0);
         }
         if (eIsPressed && tile != null) {
@@ -189,7 +190,7 @@ public class Player extends  Entity{
         }
     }
 
-    private void checkPlayerIsAlive() {
-        isAlive = hp > 0;
+    public boolean checkPlayerIsAlive()  {
+        return hp > 0;
     }
 }

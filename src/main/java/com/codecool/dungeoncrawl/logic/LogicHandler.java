@@ -51,6 +51,11 @@ public class LogicHandler {
 
     private boolean armorStatus;
 
+    private boolean isPlayerDead;
+
+    private boolean playerHasWon;
+
+
     public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
         levelOne = new Level(LEVEL_1_BACKGROUND_URL, LEVEL_1_BLOCK_DATA_URL, LEVEL_1_ENTITY_DATA_URL, LEVEL_1_ITEM_DATA_URL);
         currentLevel = levelOne;
@@ -114,6 +119,17 @@ public class LogicHandler {
 
     public int getPlayerMaxHp() {
         return playerMaxHp;
+    }
+
+    public boolean playerDied() {
+        return isPlayerDead;
+    }
+
+    private void setPlayerDetails() {
+        playerIsAttacking = player.playerAttack(mouseHandler);
+        playerMaxHp = player.getMaxHp();
+        armorStatus = player.hasArmor();
+        isPlayerDead = !player.checkPlayerIsAlive();
     }
 
     // --------------------------------------------------------------- COLLISION ---------------------------------------------------------------------------------------
@@ -235,7 +251,6 @@ public class LogicHandler {
             }
         }
     }
-
     private void spiritActions() {
         if (spirits.size() != 0) {
             for (Spirit spirit : spirits) {
@@ -245,6 +260,7 @@ public class LogicHandler {
             }
         }
     }
+
     //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
 
     // test
@@ -252,26 +268,22 @@ public class LogicHandler {
 
     //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
 
-    private void setPlayerDetails() {
-        playerIsAttacking = player.playerAttack(mouseHandler);
-        playerMaxHp = player.getMaxHp();
-        armorStatus = player.hasArmor();
-    }
-
 
 
     public void update() {
             setPlayerDetails();
-            checkCollisions(player);
-            player.move(keyHandler);
-            skeletonActions();
-            spiritActions();
-            player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
-            player.openDoor(checkDoorCollision(player),keyHandler.eIsPressed());
-            currentLevel.clearPickedUpItems();
-            if (player.playerAttack(mouseHandler)) {
-                destroySkeleton();
-                destroySpirit();
+            if (player.checkPlayerIsAlive()) {
+                checkCollisions(player);
+                player.move(keyHandler);
+                skeletonActions();
+                spiritActions();
+                player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
+                player.openDoor(checkDoorCollision(player),keyHandler.eIsPressed());
+                currentLevel.clearPickedUpItems();
+                if (player.playerAttack(mouseHandler)) {
+                    destroySkeleton();
+                    destroySpirit();
+                }
             }
     }
 }
