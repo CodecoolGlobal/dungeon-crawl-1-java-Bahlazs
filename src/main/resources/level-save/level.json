@@ -3,70 +3,7 @@
   "backgroundUrl": "/background/level1-background.png",
   "skeletons": [
     {
-      "directionCoolDown": 0.4199999,
-      "attackCooldown": 1.2,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 12,
-      "size": 64,
-      "imageUrl": "/enemies/skeleton.png",
-      "speed": 1,
-      "direction": "DOWN",
-      "position": {
-        "x": 1424,
-        "y": 849
-      },
-      "hitBox": {
-        "x": 1440,
-        "y": 881,
-        "width": 32,
-        "height": 32
-      }
-    },
-    {
-      "directionCoolDown": 0.4199999,
-      "attackCooldown": 1.2,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 12,
-      "size": 64,
-      "imageUrl": "/enemies/skeleton.png",
-      "speed": 1,
-      "direction": "RIGHT",
-      "position": {
-        "x": 2133,
-        "y": 659
-      },
-      "hitBox": {
-        "x": 2149,
-        "y": 691,
-        "width": 32,
-        "height": 32
-      }
-    },
-    {
-      "directionCoolDown": 0.4199999,
-      "attackCooldown": 1.2,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 12,
-      "size": 64,
-      "imageUrl": "/enemies/skeleton.png",
-      "speed": 1,
-      "direction": "RIGHT",
-      "position": {
-        "x": 968,
-        "y": 1720
-      },
-      "hitBox": {
-        "x": 984,
-        "y": 1752,
-        "width": 32,
-        "height": 32
-      }
-    },
-    {
-      "directionCoolDown": 0.4199999,
+      "directionCoolDown": 0.32,
       "attackCooldown": 1.2,
       "canAttack": true,
       "cooldownChecker": 0.0,
@@ -76,172 +13,19 @@
       "speed": 1,
       "direction": "UP",
       "position": {
-        "x": 1276,
-        "y": 1634
+        "x": 2082,
+        "y": 607
       },
       "hitBox": {
-        "x": 1292,
-        "y": 1666,
+        "x": 2098,
+        "y": 639,
         "width": 32,
         "height": 32
       }
     }
   ],
-  "spirits": [
-    {
-      "range": 300,
-      "playerInRange": false,
-      "attackCooldown": 0.7,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 10,
-      "size": 64,
-      "imageUrl": "/enemies/spirit.png",
-      "speed": 2,
-      "direction": "DOWN",
-      "position": {
-        "x": 704,
-        "y": 1024
-      },
-      "hitBox": {
-        "x": 720,
-        "y": 1056,
-        "width": 32,
-        "height": 32
-      }
-    },
-    {
-      "range": 300,
-      "playerInRange": false,
-      "attackCooldown": 0.7,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 10,
-      "size": 64,
-      "imageUrl": "/enemies/spirit.png",
-      "speed": 2,
-      "direction": "DOWN",
-      "position": {
-        "x": 2048,
-        "y": 1088
-      },
-      "hitBox": {
-        "x": 2064,
-        "y": 1120,
-        "width": 32,
-        "height": 32
-      }
-    },
-    {
-      "range": 300,
-      "playerInRange": false,
-      "attackCooldown": 0.7,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 10,
-      "size": 64,
-      "imageUrl": "/enemies/spirit.png",
-      "speed": 2,
-      "direction": "DOWN",
-      "position": {
-        "x": 1728,
-        "y": 1536
-      },
-      "hitBox": {
-        "x": 1744,
-        "y": 1568,
-        "width": 32,
-        "height": 32
-      }
-    },
-    {
-      "range": 300,
-      "playerInRange": false,
-      "attackCooldown": 0.7,
-      "canAttack": true,
-      "cooldownChecker": 0.0,
-      "damage": 10,
-      "size": 64,
-      "imageUrl": "/enemies/spirit.png",
-      "speed": 2,
-      "direction": "DOWN",
-      "position": {
-        "x": 2112,
-        "y": 1728
-      },
-      "hitBox": {
-        "x": 2128,
-        "y": 1760,
-        "width": 32,
-        "height": 32
-      }
-    }
-  ],
+  "spirits": [],
   "items": [
-    {
-      "type": "Potion",
-      "name": "armor",
-      "imageUrl": "/items/lifepot.png",
-      "pickUpRadius": {
-        "x": 2166,
-        "y": 694,
-        "width": 84,
-        "height": 84
-      },
-      "pickedUp": false,
-      "position": {
-        "x": 2176,
-        "y": 704
-      }
-    },
-    {
-      "type": "Armor",
-      "name": "armor",
-      "imageUrl": "/items/armor.png",
-      "pickUpRadius": {
-        "x": 2358,
-        "y": 694,
-        "width": 84,
-        "height": 84
-      },
-      "pickedUp": false,
-      "position": {
-        "x": 2368,
-        "y": 704
-      }
-    },
-    {
-      "type": "Potion",
-      "name": "armor",
-      "imageUrl": "/items/lifepot.png",
-      "pickUpRadius": {
-        "x": 694,
-        "y": 1782,
-        "width": 84,
-        "height": 84
-      },
-      "pickedUp": false,
-      "position": {
-        "x": 704,
-        "y": 1792
-      }
-    },
-    {
-      "type": "Potion",
-      "name": "armor",
-      "imageUrl": "/items/lifepot.png",
-      "pickUpRadius": {
-        "x": 1718,
-        "y": 1782,
-        "width": 84,
-        "height": 84
-      },
-      "pickedUp": false,
-      "position": {
-        "x": 1728,
-        "y": 1792
-      }
-    },
     {
       "type": "Key",
       "name": "armor",
@@ -261,25 +45,30 @@
   ],
   "player": {
     "baseHP": 100,
-    "inventory": [],
+    "inventory": [
+      "armor",
+      "armor",
+      "armor",
+      "armor"
+    ],
     "hasKey": false,
     "hasWon": false,
     "attackDuration": 0.4,
     "moving": true,
-    "hp": 100,
-    "maxHp": 100,
-    "hasArmor": false,
+    "hp": 24,
+    "maxHp": 130,
+    "hasArmor": true,
     "size": 64,
-    "imageUrl": "/player/Samurai.png",
+    "imageUrl": "/player/Samurai-armored.png",
     "speed": 3,
     "direction": "RIGHT",
     "position": {
-      "x": 1162,
-      "y": 704
+      "x": 1763,
+      "y": 1698
     },
     "hitBox": {
-      "x": 1178,
-      "y": 736,
+      "x": 1779,
+      "y": 1730,
       "width": 32,
       "height": 32
     }

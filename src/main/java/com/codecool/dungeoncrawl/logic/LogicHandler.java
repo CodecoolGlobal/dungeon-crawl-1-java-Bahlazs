@@ -116,6 +116,10 @@ public class LogicHandler {
         return mouseHandler;
     }
 
+    public List<String> getPlayerInventory() {
+        return player.getInventory();
+    }
+
     public int getPlayerMaxHp() {
         return playerMaxHp;
     }

@@ -196,7 +196,17 @@ public class GamePanel extends JPanel {
     }
 
     private void drawPlayerInventory(Graphics2D g2d) {
-
+        int yPos = 30;
+        List<String> inventory = logicH.getPlayerInventory();
+        g2d.setFont(new Font("Arial", Font.BOLD, 16));
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("INVENTORY: ", 1100, yPos);
+        if (inventory.size() != 0) {
+            for (String item: inventory) {
+                g2d.drawString(item, 1100, yPos+30);
+                yPos += 20;
+            }
+        }
     }
 
     private void drawMessages(Graphics2D g2d) {
@@ -243,6 +253,7 @@ public class GamePanel extends JPanel {
         drawEnemies(g2d);
         drawItems(g2d);
         drawPlayerStats(g2d);
+        drawPlayerInventory(g2d);
         drawMessages(g2d);
         drawPlayer(g2d);
         g2d.dispose();

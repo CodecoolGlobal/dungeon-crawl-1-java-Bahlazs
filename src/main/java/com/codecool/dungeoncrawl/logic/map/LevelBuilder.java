@@ -115,11 +115,11 @@ public class LevelBuilder {
                 }
                 if (tileIds.get(i).get(j) == 369) {
 
-                    items.add(new Potion(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/lifepot.png"));
+                    items.add(new Potion(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "empty flask", "/items/lifepot.png"));
                 }
                 if (tileIds.get(i).get(j) == 0) {
 
-                    items.add(new Key(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "armor", "/items/key.png"));
+                    items.add(new Key(j* Game.TILE_SIZE, i* Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, "key", "/items/key.png"));
                 }
 
             }

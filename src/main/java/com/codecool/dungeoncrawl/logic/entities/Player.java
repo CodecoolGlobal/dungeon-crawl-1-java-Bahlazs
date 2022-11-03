@@ -31,12 +31,13 @@ public class Player extends  Entity{
     private boolean moving;
 
     private int hp;
-    private int maxHp = 100;
+    private int maxHp;
     private boolean hasArmor;
 
     public Player(int x, int y, int size) {
         super(CHARACTER_URL, x, y, PLAYER_BASE_SPEED, size);
         hp = baseHP;
+        maxHp = baseHP;
         hasArmor = false;
         attackDuration = 0.4;
         moving = true;
@@ -70,6 +71,9 @@ public class Player extends  Entity{
         return maxHp;
     }
 
+    public List<String> getInventory() {
+        return inventory;
+    }
 
     @Override
     public void move() {
