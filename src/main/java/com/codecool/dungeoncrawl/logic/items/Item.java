@@ -1,13 +1,11 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-import com.codecool.dungeoncrawl.logic.Drawable;
+
 import com.codecool.dungeoncrawl.logic.DrawableItem;
-import com.codecool.dungeoncrawl.util.Direction;
-import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+;
 
 public abstract class Item implements DrawableItem {
 

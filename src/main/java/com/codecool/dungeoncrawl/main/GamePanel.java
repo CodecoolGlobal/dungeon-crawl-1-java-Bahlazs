@@ -195,6 +195,10 @@ public class GamePanel extends JPanel {
 
     }
 
+    private void drawPlayerInventory(Graphics2D g2d) {
+
+    }
+
     private void drawMessages(Graphics2D g2d) {
         if (!game.isGameActive()) {
             drawPaused(g2d);
@@ -202,13 +206,33 @@ public class GamePanel extends JPanel {
         if (logicH.playerDied()) {
             drawGameOver(g2d);
         }
+        if (logicH.playerWon()) {
+            drawGameWon(g2d);
+        }
+    }
+
+    private void drawGameWon(Graphics2D g2d) {
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0,0, width, height);
+        g2d.setFont(new Font("Arial", Font.BOLD, 64));
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("YOU WON!", width/2 - 170 , height/2-100);
     }
 
     private void drawGameOver(Graphics2D g2d) {
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0,0, width, height);
+        g2d.setFont(new Font("Arial", Font.BOLD, 64));
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("GAME OVER!", width/2 - 225 , height/2-100);
     }
 
     private void drawPaused(Graphics2D g2d) {
-        
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0,0, width, height);
+        g2d.setFont(new Font("Arial", Font.BOLD, 64));
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("GAME PAUSED!", width/2 - 280 , height/2-100);
     }
 
     public void paintComponent(Graphics g) {
@@ -218,8 +242,9 @@ public class GamePanel extends JPanel {
         drawCameraView(g2d);
         drawEnemies(g2d);
         drawItems(g2d);
-        drawPlayer(g2d);
         drawPlayerStats(g2d);
+        drawMessages(g2d);
+        drawPlayer(g2d);
         g2d.dispose();
 
     }

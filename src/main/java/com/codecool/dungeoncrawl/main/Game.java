@@ -22,6 +22,8 @@ public class Game implements Runnable {
 
     private Thread gameThread;
 
+    private double restartChecker;
+
     private boolean gameIsActive;
 
     private final GamePanel gamePanel;
@@ -53,7 +55,18 @@ public class Game implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
         gameIsActive = true;
+        restartChecker = 0;
     }
+
+//    private void restartGameIfPlayerIsDead(double restartChecker){
+//        String[] args = new String[0];
+//        if (logicHandler.playerDied()) {
+//            restartChecker += 0.01;
+//            if (restartChecker >= 3) {
+//                Main.main(args);
+//            }
+//        }
+//    }
 
 
 //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
@@ -82,6 +95,9 @@ public class Game implements Runnable {
     }
 
     private void hotKeyHandler() {
+        if (keyHandler.isEscPressed()) {
+            pauseGame();
+        }
         if (!gameIsActive && keyHandler.isEnterPressed()) {
             resumeGame();
         }
@@ -103,6 +119,7 @@ public class Game implements Runnable {
         int updates = 0;
         long lastChecked = System.currentTimeMillis();
 
+
         double deltaU = 0;
         double deltaF = 0;
 
@@ -121,9 +138,7 @@ public class Game implements Runnable {
                     logicHandler.update();
                     gamePanel.updateObjectDrawStatus();
                 }
-                if (keyHandler.isEscPressed()) {
-                    pauseGame();
-                }
+//                restartGameIfPlayerIsDead(restartChecker);
                 updates++;
                 deltaU--;
             }

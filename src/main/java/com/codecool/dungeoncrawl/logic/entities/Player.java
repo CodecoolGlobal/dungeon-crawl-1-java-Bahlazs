@@ -8,10 +8,8 @@ import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Potion;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.util.Direction;
-import com.codecool.dungeoncrawl.util.ImageLoader;
-import com.google.gson.annotations.Expose;
 
-import java.awt.image.BufferedImage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +58,7 @@ public class Player extends  Entity{
         return hasArmor;
     }
 
-    public boolean isHasWon() {
+    public boolean hasWon() {
         return hasWon;
     }
 
@@ -183,7 +181,6 @@ public class Player extends  Entity{
     public void openDoor(Tile tile, boolean eIsPressed) {
         if (hasKey && eIsPressed && tile != null) {
             hasWon = true;
-            System.exit(0);
         }
         if (eIsPressed && tile != null) {
             System.out.println("The door is locked");

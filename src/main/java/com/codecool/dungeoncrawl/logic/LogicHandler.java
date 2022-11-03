@@ -53,7 +53,6 @@ public class LogicHandler {
 
     private boolean isPlayerDead;
 
-    private boolean playerHasWon;
 
 
     public LogicHandler(KeyHandler keyHandler, MouseHandler mouseHandler) {
@@ -123,6 +122,10 @@ public class LogicHandler {
 
     public boolean playerDied() {
         return isPlayerDead;
+    }
+
+    public boolean playerWon() {
+        return player.hasWon();
     }
 
     private void setPlayerDetails() {
@@ -261,9 +264,6 @@ public class LogicHandler {
         }
     }
 
-    //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
-
-    // test
 
 
     //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------

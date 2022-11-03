@@ -1,14 +1,12 @@
 package com.codecool.dungeoncrawl.logic.entities;
 
 import com.codecool.dungeoncrawl.logic.Drawable;
-import com.codecool.dungeoncrawl.logic.MouseHandler;
 import com.codecool.dungeoncrawl.util.Direction;
-import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.codecool.dungeoncrawl.util.Position;
-import com.google.gson.annotations.Expose;
+
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
 
 public abstract class Entity implements Drawable {
 
@@ -27,8 +25,7 @@ public abstract class Entity implements Drawable {
     protected Position position;
 
     protected Rectangle hitBox;
-
-    protected Boolean collisionIsOn;
+    
 
     public Entity(String url, int x, int y, int speed, int size) {
         position = new Position(x,y);
