@@ -1,12 +1,15 @@
 package com.codecool.dungeoncrawl.logic.map;
+
 import com.codecool.dungeoncrawl.logic.entities.Player;
 import com.codecool.dungeoncrawl.logic.entities.Skeleton;
 import com.codecool.dungeoncrawl.logic.entities.Spirit;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.ImageLoader;
 import com.google.gson.annotations.Expose;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class Level {
     private final Player player; //
 
     private final Tile[][] tileGrid;
+    private List<Tile> doors;
 
     private final LevelBuilder levelBuilder;
 
@@ -38,11 +42,25 @@ public class Level {
         skeletons = levelBuilder.spawnSkeleton(levelBuilder.getLayerDetails(entityDateUrl));
         spirits = levelBuilder.spawnSpirit(levelBuilder.getLayerDetails(entityDateUrl));
         player = levelBuilder.spawnPlayer(levelBuilder.getLayerDetails(entityDateUrl));
+        inicializeDoor(levelBuilder.getLayerDetails(levelDetailsUrl));
 
     }
 
 
+    private void inicializeDoor(List<List<Integer>> tileIds) {
+        doors = new ArrayList<>();
+        for ( int i =0; i < tileIds.size(); i++) {
+            for (int j = 0; j < tileIds.get(i).size(); j++) {
+                if (tileIds.get(i).get(j) == 242) {
+                    doors.add(tileGrid[i][j]);
+                }
+            }
+        }
+    }
 
+    public List<Tile> getDoors() {
+        return doors;
+    }
 
     public List<Skeleton> getSkeletons() {
         return skeletons;

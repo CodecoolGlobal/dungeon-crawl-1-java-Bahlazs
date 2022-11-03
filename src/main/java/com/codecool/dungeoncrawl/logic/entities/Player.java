@@ -53,6 +53,8 @@ public class Player extends  Entity{
         return attackDuration;
     }
 
+    public boolean isAlive;
+
     public boolean hasKey() {
         return hasKey;
     }
@@ -158,6 +160,7 @@ public class Player extends  Entity{
 
     private void pickUpKey(Item item) { //TODO!
         hasKey = true;
+        item.setPickedUpTrue();
         inventory.add(item.getName());
     }
 
@@ -176,7 +179,17 @@ public class Player extends  Entity{
         raiseHp(Potion.POTION_HEAL_VALUE);
     }
 
-    private void openDoor(Tile tile) {
+    public void openDoor(Tile tile, boolean eIsPressed) {
+        if (hasKey && eIsPressed && tile != null) {
+            System.out.println("YOU WIN!!!!!");
+            System.exit(0);
+        }
+        if (eIsPressed && tile != null) {
+            System.out.println("The door is locked");
+        }
+    }
 
+    private void checkPlayerIsAlive() {
+        isAlive = hp > 0;
     }
 }

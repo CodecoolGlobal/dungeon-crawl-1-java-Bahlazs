@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.dao.SerializePlayer;
 import com.codecool.dungeoncrawl.logic.entities.*;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.map.Door;
 import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
@@ -115,6 +116,14 @@ public class LogicHandler {
                 return item;
             }
         } return null;
+    }
+
+    private Tile checkDoorCollision(Entity entity) {
+        for (Tile door : levelOne.getDoors())
+            if (entity.getHitBox().intersects(door)) {
+                return door;
+        }
+       return null;
     }
 
     public void checkCollisions(Entity entity) {
@@ -241,9 +250,7 @@ public class LogicHandler {
         armorStatus = player.hasArmor();
     }
 
-    private boolean playerIsAlive() {
-        return player.getHp() > 0;
-    }
+
 
     public void update() {
             setPlayerDetails();
@@ -252,6 +259,7 @@ public class LogicHandler {
             skeletonActions();
             spiritActions();
             player.pickUp(checkItemCollision(), keyHandler.eIsPressed());
+            player.openDoor(checkDoorCollision(player),keyHandler.eIsPressed());
             currentLevel.clearPickedUpItems();
             if (player.playerAttack(mouseHandler)) {
                 destroySkeleton();
