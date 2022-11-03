@@ -1,8 +1,12 @@
 package com.codecool.dungeoncrawl.main;
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.dao.Serializer;
 import com.codecool.dungeoncrawl.logic.KeyHandler;
 import com.codecool.dungeoncrawl.logic.LogicHandler;
 import com.codecool.dungeoncrawl.logic.MouseHandler;
+import com.codecool.dungeoncrawl.logic.map.Level;
+import com.google.gson.Gson;
 
 public class Game implements Runnable{
 
@@ -19,7 +23,6 @@ public class Game implements Runnable{
 
     private Thread gameThread;
 
-
     private final GamePanel gamePanel;
 
     private final LogicHandler logicHandler;
@@ -27,7 +30,10 @@ public class Game implements Runnable{
     private final MouseHandler mouseHandler;
 
     private final KeyHandler keyHandler;
+
+    private final Gson gson;
     public Game() {
+        gson = Serializer.createGson();
         keyHandler = new KeyHandler();
         mouseHandler = new MouseHandler();
         logicHandler = new LogicHandler(keyHandler, mouseHandler);
@@ -40,6 +46,15 @@ public class Game implements Runnable{
     private void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public void saveGame() {
+        Level levelOne = logicHandler.getLevelOne();
+        Serializer.serialize(levelOne, gson);
+    }
+
+    public void loadGame() {
+        Level loadedLevel = Serializer.getLevelFromJSON(gson);
     }
 
     // Game loop

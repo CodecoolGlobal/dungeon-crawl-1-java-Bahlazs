@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.dao.SerializePlayer;
+import com.codecool.dungeoncrawl.dao.Serializer;
 import com.codecool.dungeoncrawl.logic.entities.*;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.map.Door;
@@ -10,9 +10,8 @@ import com.codecool.dungeoncrawl.logic.map.Level;
 import com.codecool.dungeoncrawl.logic.map.Tile;
 import com.codecool.dungeoncrawl.main.Game;
 import com.codecool.dungeoncrawl.util.Direction;
+import com.google.gson.Gson;
 
-import java.awt.image.BufferedImage;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +46,7 @@ public class LogicHandler {
 
 
     private int playerMaxHp;
+
     private boolean playerIsAttacking;
 
     private boolean armorStatus;
@@ -61,6 +61,10 @@ public class LogicHandler {
         this.keyHandler = keyHandler;
         this.mouseHandler = mouseHandler;
 
+    }
+
+    public Level getLevelOne() {
+        return levelOne;
     }
 
     public Drawable getPlayer() {
@@ -232,15 +236,7 @@ public class LogicHandler {
     //------------------------------------------------------------- LOAD/SAVE ----------------------------------------------------------------------------
 
     // test
-    public void saveGame() {
-        GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
-        gameDatabaseManager.setup();
-//        gameDatabaseManager.savePlayer(player);
-//        Player player = gameDatabaseManager.getPlayer();
-//        SerializePlayer.serialize(player);
-//        Player newPlayer = SerializePlayer.getFromJSON();
-        SerializePlayer.serialize(levelOne);
-        }
+
 
     //------------------------------------------------------------- UPDATE GAME STATE ----------------------------------------------------------------------------
 
@@ -264,9 +260,6 @@ public class LogicHandler {
             if (player.playerAttack(mouseHandler)) {
                 destroySkeleton();
                 destroySpirit();
-            }
-            if (keyHandler.mIsPressed()) {
-                saveGame();
             }
     }
 }

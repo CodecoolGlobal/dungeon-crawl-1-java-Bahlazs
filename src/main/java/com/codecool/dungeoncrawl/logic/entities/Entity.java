@@ -23,7 +23,7 @@ public abstract class Entity implements Drawable {
     protected int speed;
 
     protected Direction direction;
-    @Expose
+
     protected Position position;
 
     protected Rectangle hitBox;

@@ -18,13 +18,13 @@ public class Level {
     private final String levelDetailsUrl;
 
     private final String backgroundUrl; //
-    @Expose
+
     private final List<Skeleton> skeletons; //
-    @Expose
+
     private final List<Spirit> spirits; //
-    @Expose
+
     private final List<Item> items; //
-    @Expose
+
     private final Player player; //
 
     private final Tile[][] tileGrid;
